@@ -19,7 +19,7 @@ namespace EMClient
 
 		private void EMClient_Load(object sender, EventArgs e)
 		{
-
+			MessageBox.Show("Test");
 		}
 	}
 }
