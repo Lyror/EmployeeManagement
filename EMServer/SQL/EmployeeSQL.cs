@@ -27,10 +27,10 @@ namespace EMServer.SQL
 		public string GetEmployees()
 		{
 			string sql = "select * from employeeView as ev " +
-							"inner join timeManagement as tm on ev.id = tm.id " +
-							"inner join deparmentGroup as dg on ev.id = dg.employeeId " +
-							"inner join departments as d on dg.departmentId = d.id " +
-							"inner join location as l on d.locationId = l.id";
+			"join timeManagement as tm on ev.id = tm.id " +
+			"join deparmentGroup as dg on ev.id = dg.employeeId " +
+			"join departments as d on dg.departmentId = d.id " +
+			"join location as l on d.locationId = l.id";
 
 			EmployeeTable table = new EmployeeTable();
 			using (var command = Connection.GetCommand(sql))
@@ -43,20 +43,60 @@ namespace EMServer.SQL
 						(
 							new EmployeeRow()
 							{
-								 FirstName = reader["firstName"].ToString(),
-								 LastName = reader["lastName"].ToString(),
-								 Address = reader["adress"].ToString(),
-								 Birthday = DateTime.Parse(reader["birthday"].ToString()),
-								 Email = reader["email"].ToString(),
-								 Phone = reader["phone"].ToString(),
-								 DateCount = Convert.ToInt32(reader["dateCount"]),
-								 HourCountPerDay = Convert.ToInt32(reader["hourCountPerDay"]),
-								 HolidaysPerYear = Convert.ToInt32(reader["holidaysPerYear"])
+								FirstName = reader["firstName"].ToString(),
+								LastName = reader["lastName"].ToString(),
+								Address = reader["adress"].ToString(),
+								Birthday = DateTime.Parse(reader["birthday"].ToString()),
+								Email = reader["email"].ToString(),
+								Phone = reader["phone"].ToString(),
+								DateCount = Convert.ToInt32(reader["dateCount"]),
+								HourCountPerDay = Convert.ToInt32(reader["hourCountPerDay"]),
+								HolidaysPerYear = Convert.ToInt32(reader["holidaysPerYear"])
 							}
 						);
 					}
 				}
 			}
+
+			return Serialize.ToBase64(table);
+		}
+
+
+		[WebMethod]
+		public string GetEmployees()
+		{
+			string sql = "select * from employeeView ";/*as ev " +*/
+			//				"outer join timeManagement as tm on ev.id = tm.id " +
+			//				"outer join deparmentGroup as dg on ev.id = dg.employeeId " +
+			//				"outer join departments as d on dg.departmentId = d.id " +
+			//				"outer join location as l on d.locationId = l.id";
+
+			EmployeeTable table = new EmployeeTable();
+			using (var command = Connection.GetCommand(sql))
+			{
+				using (var reader = command.ExecuteReader())
+				{
+					while (reader.Read())
+					{
+						table.Rows.Add
+						(
+							new EmployeeRow()
+							{
+								FirstName = reader["firstName"].ToString(),
+								LastName = reader["lastName"].ToString(),
+								Address = reader["adress"].ToString(),
+								Birthday = DateTime.Parse(reader["birthday"].ToString()),
+								Email = reader["email"].ToString(),
+								Phone = reader["phone"].ToString(),
+								DateCount = Convert.ToInt32(reader["dateCount"]),
+								HourCountPerDay = Convert.ToInt32(reader["hourCountPerDay"]),
+								HolidaysPerYear = Convert.ToInt32(reader["holidaysPerYear"])
+							}
+						);
+					}
+				}
+			}
+
 			return Serialize.ToBase64(table);
 		}
 
@@ -121,6 +161,15 @@ namespace EMServer.SQL
 				Connection.AddParam(command, Connection.ParamMarker("var7"), System.Data.DbType.Int32).Value = row.HourCountPerDay;
 				Connection.AddParam(command, Connection.ParamMarker("var8"), System.Data.DbType.Int32).Value = row.HolidaysPerYear;
 
+				command.ExecuteNonQuery();
+			}
+		}
+
+		public void UpdateEmployee(string EmRow)
+		{
+			using(DbCommand command = Connection.GetCommand("UPDATE departments SET name = " + Connection.ParamMarker("var0") + ""))
+			{
+				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.String).Value = "";
 				command.ExecuteNonQuery();
 			}
 		}

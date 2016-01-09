@@ -11,6 +11,11 @@ namespace EMServer.SQL
 {
 	public class DepartmentGroupSQL : SQL, IWebService
 	{
+		public DepartmentGroupSQL(string s)
+			: base(s)
+		{
+
+		}
 		[WebMethod]
 		public object GetDepartmentGroup()
 		{
@@ -36,18 +41,36 @@ namespace EMServer.SQL
 			return EMLib.Serialize.ToBase64(table);
 		}
 
+		//[WebMethod]
+		//public object GetDepartmentGroup(int deparmentId)
+		//{
+		//	DepartmentGroupTable table = new DepartmentGroupTable();
+			
+
+
+		//	return EMLib.Serialize.ToBase64(table);
+		//}
+
 		[WebMethod]
-		public object GetDepartmentGroup(string StringRow)
+		public void InsertDepartmentGroup(string stringRow)
 		{
-			DepartmentGroupTable table = new DepartmentGroupTable();
-			DepartmentGroupRow row = EMLib.Serialize.FromBase64<DepartmentGroupRow>(StringRow);
+			DepartmentGroupRow row = EMLib.Serialize.FromBase64<DepartmentGroupRow>(stringRow);
 			using (DbCommand command = Connection.GetCommand("INSERT INTO DepartmentGroup (EmployeeId, DepartmentId) Values ( " + Connection.ParamMarker("var0") + ", " + Connection.ParamMarker("var1") + " )"))
 			{
 				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.Int32).Value = row.EmployeeId;
 				Connection.AddParam(command, Connection.ParamMarker("var1"), System.Data.DbType.Int32).Value = row.DepartmentId;
 				command.ExecuteNonQuery();
 			}
-			return EMLib.Serialize.ToBase64(table);
+		}
+
+		public void InsertDepartmentGroup(DepartmentGroupRow row)
+		{
+			using (DbCommand command = Connection.GetCommand("INSERT INTO DepartmentGroup (EmployeeId, DepartmentId) Values ( " + Connection.ParamMarker("var0") + ", " + Connection.ParamMarker("var1") + " )"))
+			{
+				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.Int32).Value = row.EmployeeId;
+				Connection.AddParam(command, Connection.ParamMarker("var1"), System.Data.DbType.Int32).Value = row.DepartmentId;
+				command.ExecuteNonQuery();
+			}
 		}
 	}
 }

@@ -11,6 +11,10 @@ namespace EMServer.SQL
 {
 	class DepartmentSQL: SQL, IWebService
 	{
+		public DepartmentSQL(string s) : base(s)
+		{
+
+		}
 		[WebMethod]
 		public object GetDepartments()
 		{
@@ -45,6 +49,16 @@ namespace EMServer.SQL
 			{
 				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.Int32).Value = row.LocationId;
 				Connection.AddParam(command, Connection.ParamMarker("var1"), System.Data.DbType.String).Value = row.Name;
+				command.ExecuteNonQuery();
+			}
+		}
+
+		[WebMethod]
+		public void UpdateDepartmentName(string newName)
+		{
+			using (DbCommand command = Connection.GetCommand("UPDATE departments SET name = " + Connection.ParamMarker("var0") + ""))
+			{
+				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.String).Value = newName;
 				command.ExecuteNonQuery();
 			}
 		}

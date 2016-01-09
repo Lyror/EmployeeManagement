@@ -32,6 +32,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Lib">
+      <HintPath>..\..\Lib.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="RpcClientLib">
+      <HintPath>..\..\RpcClientLib.dll</HintPath>
+    </Reference>
+    <Reference Include="RpcContract">
+      <HintPath>..\..\RpcContract.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms.Ribbon35">
@@ -53,10 +65,20 @@
     <Compile Include="EMClient.Designer.cs">
       <DependentUpon>EMClient.cs</DependentUpon>
     </Compile>
+    <Compile Include="EmployeeView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EmployeeView.Designer.cs">
+      <DependentUpon>EmployeeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IPages.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="EMClient.resx">
       <DependentUpon>EMClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmployeeView.resx">
+      <DependentUpon>EmployeeView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -79,6 +101,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EMLib\EMLib.csproj">
+      <Project>{0e0e1c81-7d26-4537-bdc3-952bac2f346f}</Project>
+      <Name>EMLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
