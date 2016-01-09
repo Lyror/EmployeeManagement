@@ -38,6 +38,9 @@
     <Reference Include="log4net">
       <HintPath>..\..\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\EMServer\bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="RpcClientLib">
       <HintPath>..\..\RpcClientLib.dll</HintPath>
     </Reference>

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
 			System.Windows.Forms.Button button1;
-			this.dataGridView1 = new System.Windows.Forms.DataGridView();
+			this.dgvEmployeeView = new System.Windows.Forms.DataGridView();
 			this.dgcFirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dgcLastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dgcAdress = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -42,7 +42,7 @@
 			this.dgcDepartments = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dgcLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			button1 = new System.Windows.Forms.Button();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgvEmployeeView)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// button1
@@ -55,10 +55,13 @@
 			button1.UseVisualStyleBackColor = true;
 			button1.Click += new System.EventHandler(this.button1_Click);
 			// 
-			// dataGridView1
+			// dgvEmployeeView
 			// 
-			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+			this.dgvEmployeeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dgvEmployeeView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dgvEmployeeView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dgcFirstName,
             this.dgcLastName,
             this.dgcAdress,
@@ -70,11 +73,11 @@
             this.dgcHolidaysPerYear,
             this.dgcDepartments,
             this.dgcLocation});
-			this.dataGridView1.Location = new System.Drawing.Point(0, 36);
-			this.dataGridView1.Name = "dataGridView1";
-			this.dataGridView1.Size = new System.Drawing.Size(862, 627);
-			this.dataGridView1.TabIndex = 1;
-			this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+			this.dgvEmployeeView.Location = new System.Drawing.Point(0, 36);
+			this.dgvEmployeeView.Name = "dgvEmployeeView";
+			this.dgvEmployeeView.Size = new System.Drawing.Size(992, 329);
+			this.dgvEmployeeView.TabIndex = 1;
+			this.dgvEmployeeView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
 			// 
 			// dgcFirstName
 			// 
@@ -157,18 +160,18 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.dataGridView1);
+			this.Controls.Add(this.dgvEmployeeView);
 			this.Controls.Add(button1);
 			this.Name = "EmployeeView";
-			this.Size = new System.Drawing.Size(1139, 666);
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+			this.Size = new System.Drawing.Size(995, 368);
+			((System.ComponentModel.ISupportInitialize)(this.dgvEmployeeView)).EndInit();
 			this.ResumeLayout(false);
 
         }
 
 		#endregion
 
-		private System.Windows.Forms.DataGridView dataGridView1;
+		private System.Windows.Forms.DataGridView dgvEmployeeView;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dgcFirstName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dgcLastName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dgcAdress;

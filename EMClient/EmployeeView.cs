@@ -30,7 +30,7 @@ namespace EMClient
 		{
 			var result = client.CallSyncMethod("GetEmployees");
 			EmployeeTable table = Serialize.FromBase64<EmployeeTable>(result.ToString());
-			table.Rows.First().Items.First();
+			//table.Rows.First().Items.First();
 		}
 
 		private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
