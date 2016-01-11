@@ -41,15 +41,43 @@ namespace EMServer.SQL
 			return EMLib.Serialize.ToBase64(table);
 		}
 
-		//[WebMethod]
-		//public object GetDepartmentGroup(int deparmentId)
-		//{
-		//	DepartmentGroupTable table = new DepartmentGroupTable();
-			
+		[WebMethod]
+		public List<string> GetEmployeeDepartments(object employeeIdOrEmail)
+		{
+			List<string> items = new List<string>();
+			using (DbCommand command = Connection.GetCommand(""))
+			{
+				string sql = null;
+				int result = 0;
+				if (int.TryParse(employeeIdOrEmail.ToString(), out result))
+				{
+					sql = "select d.name from deparmentGroup as dg " +
+							"INNER JOIN departments as d on dg.departmentId = d.id " +
+							"where dg.employeeId = " + Connection.ParamMarker("var0");
+					Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.Int32).Value = Convert.ToInt32(employeeIdOrEmail);
 
+				}
+				else
+				{
+					sql = "select d.name from deparmentGroup as dg " +
+							"INNER JOIN departments as d on dg.departmentId = d.id " +
+							"inner join employees as e on dg.employeeId = e.id " +
+							"where e.email = " + Connection.ParamMarker("var0");
+					Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.String).Value = employeeIdOrEmail.ToString();
+				}
+				command.CommandText = sql;
 
-		//	return EMLib.Serialize.ToBase64(table);
-		//}
+				using (DbDataReader reader = command.ExecuteReader())
+				{
+					while (reader.Read())
+					{
+						items.Add(reader[0].ToString());
+					}
+				}
+			}
+
+			return items;
+		}
 
 		[WebMethod]
 		public void InsertDepartmentGroup(string stringRow)

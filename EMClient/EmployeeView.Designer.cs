@@ -28,8 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-			System.Windows.Forms.Button button1;
-			this.dgvEmployeeView = new System.Windows.Forms.DataGridView();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmployeeView));
+			this.dgEmployeeView = new System.Windows.Forms.DataGridView();
+			this.tsActions = new System.Windows.Forms.ToolStrip();
+			this.tsbLoad = new System.Windows.Forms.ToolStripButton();
+			this.tsbSave = new System.Windows.Forms.ToolStripButton();
 			this.dgcFirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dgcLastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dgcAdress = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -38,30 +41,23 @@
 			this.dgcPhone = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dgcDateCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dgcHourCountPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dgcHourCountPerWeek = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dgcHolidaysPerYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dgcDepartments = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dgcLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			button1 = new System.Windows.Forms.Button();
-			((System.ComponentModel.ISupportInitialize)(this.dgvEmployeeView)).BeginInit();
+			this.dgbDepartments = new System.Windows.Forms.DataGridViewButtonColumn();
+			this.dgbLocations = new System.Windows.Forms.DataGridViewButtonColumn();
+			((System.ComponentModel.ISupportInitialize)(this.dgEmployeeView)).BeginInit();
+			this.tsActions.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// button1
+			// dgEmployeeView
 			// 
-			button1.Location = new System.Drawing.Point(0, 0);
-			button1.Name = "button1";
-			button1.Size = new System.Drawing.Size(56, 40);
-			button1.TabIndex = 0;
-			button1.Text = "button1";
-			button1.UseVisualStyleBackColor = true;
-			button1.Click += new System.EventHandler(this.button1_Click);
-			// 
-			// dgvEmployeeView
-			// 
-			this.dgvEmployeeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.dgEmployeeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.dgvEmployeeView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dgvEmployeeView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+			this.dgEmployeeView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dgEmployeeView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dgcFirstName,
             this.dgcLastName,
             this.dgcAdress,
@@ -70,108 +66,157 @@
             this.dgcPhone,
             this.dgcDateCount,
             this.dgcHourCountPerDay,
+            this.dgcHourCountPerWeek,
             this.dgcHolidaysPerYear,
             this.dgcDepartments,
-            this.dgcLocation});
-			this.dgvEmployeeView.Location = new System.Drawing.Point(0, 36);
-			this.dgvEmployeeView.Name = "dgvEmployeeView";
-			this.dgvEmployeeView.Size = new System.Drawing.Size(992, 329);
-			this.dgvEmployeeView.TabIndex = 1;
-			this.dgvEmployeeView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dgcLocation,
+            this.dgbDepartments,
+            this.dgbLocations});
+			this.dgEmployeeView.Location = new System.Drawing.Point(0, 3);
+			this.dgEmployeeView.Name = "dgEmployeeView";
+			this.dgEmployeeView.Size = new System.Drawing.Size(992, 337);
+			this.dgEmployeeView.TabIndex = 1;
+			this.dgEmployeeView.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgEmployeeView_UserAddedRow);
+			// 
+			// tsActions
+			// 
+			this.tsActions.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.tsActions.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+			this.tsActions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsbLoad,
+            this.tsbSave});
+			this.tsActions.Location = new System.Drawing.Point(0, 343);
+			this.tsActions.Name = "tsActions";
+			this.tsActions.Size = new System.Drawing.Size(995, 25);
+			this.tsActions.TabIndex = 2;
+			this.tsActions.Text = "toolStrip1";
+			// 
+			// tsbLoad
+			// 
+			this.tsbLoad.Image = ((System.Drawing.Image)(resources.GetObject("tsbLoad.Image")));
+			this.tsbLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbLoad.Name = "tsbLoad";
+			this.tsbLoad.Size = new System.Drawing.Size(59, 22);
+			this.tsbLoad.Text = "Laden";
+			this.tsbLoad.Click += new System.EventHandler(this.tsbLoad_Click);
+			// 
+			// tsbSave
+			// 
+			this.tsbSave.Image = ((System.Drawing.Image)(resources.GetObject("tsbSave.Image")));
+			this.tsbSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbSave.Name = "tsbSave";
+			this.tsbSave.Size = new System.Drawing.Size(79, 22);
+			this.tsbSave.Text = "Speichern";
+			this.tsbSave.Click += new System.EventHandler(this.tsbSave_Click);
 			// 
 			// dgcFirstName
 			// 
-			this.dgcFirstName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+			this.dgcFirstName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
 			this.dgcFirstName.HeaderText = "Vorname";
 			this.dgcFirstName.Name = "dgcFirstName";
-			this.dgcFirstName.Width = 74;
 			// 
 			// dgcLastName
 			// 
-			this.dgcLastName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+			this.dgcLastName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
 			this.dgcLastName.HeaderText = "Nachname";
 			this.dgcLastName.Name = "dgcLastName";
-			this.dgcLastName.Width = 84;
 			// 
 			// dgcAdress
 			// 
-			this.dgcAdress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+			this.dgcAdress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
 			this.dgcAdress.HeaderText = "Adresse";
 			this.dgcAdress.Name = "dgcAdress";
-			this.dgcAdress.Width = 70;
 			// 
 			// dgcBirthday
 			// 
-			this.dgcBirthday.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+			this.dgcBirthday.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
 			this.dgcBirthday.HeaderText = "Geburtstag";
 			this.dgcBirthday.Name = "dgcBirthday";
-			this.dgcBirthday.Width = 84;
 			// 
 			// dgcEmail
 			// 
-			this.dgcEmail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+			this.dgcEmail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
 			this.dgcEmail.HeaderText = "E-Mail";
 			this.dgcEmail.Name = "dgcEmail";
-			this.dgcEmail.Width = 61;
 			// 
 			// dgcPhone
 			// 
-			this.dgcPhone.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+			this.dgcPhone.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
 			this.dgcPhone.HeaderText = "Telefon";
 			this.dgcPhone.Name = "dgcPhone";
-			this.dgcPhone.Width = 68;
 			// 
 			// dgcDateCount
 			// 
-			this.dgcDateCount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+			this.dgcDateCount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
 			this.dgcDateCount.HeaderText = "Anzahl Arbeitstage pro Woche";
 			this.dgcDateCount.Name = "dgcDateCount";
-			this.dgcDateCount.Width = 129;
 			// 
 			// dgcHourCountPerDay
 			// 
-			this.dgcHourCountPerDay.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+			this.dgcHourCountPerDay.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
 			this.dgcHourCountPerDay.HeaderText = "Anzahl Stunden pro Tag";
 			this.dgcHourCountPerDay.Name = "dgcHourCountPerDay";
-			this.dgcHourCountPerDay.Width = 117;
+			// 
+			// dgcHourCountPerWeek
+			// 
+			this.dgcHourCountPerWeek.HeaderText = "Anzahl Stunden pro Woche";
+			this.dgcHourCountPerWeek.Name = "dgcHourCountPerWeek";
+			this.dgcHourCountPerWeek.ReadOnly = true;
 			// 
 			// dgcHolidaysPerYear
 			// 
-			this.dgcHolidaysPerYear.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+			this.dgcHolidaysPerYear.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
 			this.dgcHolidaysPerYear.HeaderText = "Anzahl Urlaubstage pro Jahr";
 			this.dgcHolidaysPerYear.Name = "dgcHolidaysPerYear";
-			this.dgcHolidaysPerYear.Width = 132;
 			// 
 			// dgcDepartments
 			// 
-			this.dgcDepartments.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+			this.dgcDepartments.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
 			this.dgcDepartments.HeaderText = "Abteilung";
 			this.dgcDepartments.Name = "dgcDepartments";
-			this.dgcDepartments.Width = 76;
 			// 
 			// dgcLocation
 			// 
-			this.dgcLocation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+			this.dgcLocation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
 			this.dgcLocation.HeaderText = "Ort";
 			this.dgcLocation.Name = "dgcLocation";
-			this.dgcLocation.Width = 46;
+			// 
+			// dgbDepartments
+			// 
+			this.dgbDepartments.HeaderText = "Abteilungen";
+			this.dgbDepartments.Name = "dgbDepartments";
+			this.dgbDepartments.Text = "Anzeigen";
+			this.dgbDepartments.UseColumnTextForButtonValue = true;
+			// 
+			// dgbLocations
+			// 
+			this.dgbLocations.HeaderText = "Standorte";
+			this.dgbLocations.Name = "dgbLocations";
+			this.dgbLocations.Text = "Anzeigen";
+			this.dgbLocations.UseColumnTextForButtonValue = true;
 			// 
 			// EmployeeView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.dgvEmployeeView);
-			this.Controls.Add(button1);
+			this.Controls.Add(this.tsActions);
+			this.Controls.Add(this.dgEmployeeView);
 			this.Name = "EmployeeView";
 			this.Size = new System.Drawing.Size(995, 368);
-			((System.ComponentModel.ISupportInitialize)(this.dgvEmployeeView)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgEmployeeView)).EndInit();
+			this.tsActions.ResumeLayout(false);
+			this.tsActions.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
         }
 
 		#endregion
 
-		private System.Windows.Forms.DataGridView dgvEmployeeView;
+		private System.Windows.Forms.DataGridView dgEmployeeView;
+		private System.Windows.Forms.ToolStrip tsActions;
+		private System.Windows.Forms.ToolStripButton tsbLoad;
+		private System.Windows.Forms.ToolStripButton tsbSave;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dgcFirstName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dgcLastName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dgcAdress;
@@ -180,8 +225,11 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn dgcPhone;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dgcDateCount;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dgcHourCountPerDay;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dgcHourCountPerWeek;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dgcHolidaysPerYear;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dgcDepartments;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dgcLocation;
+		private System.Windows.Forms.DataGridViewButtonColumn dgbDepartments;
+		private System.Windows.Forms.DataGridViewButtonColumn dgbLocations;
 	}
 }

@@ -29,96 +29,94 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EMClient));
-			System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Mitarbeiter bearbeiten");
-			System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Mitarbeiter", new System.Windows.Forms.TreeNode[] {
-            treeNode9});
-			System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Abteilungen");
-			System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("");
-			this.ribbon1 = new System.Windows.Forms.Ribbon();
 			this.ribbonOrbOptionButton1 = new System.Windows.Forms.RibbonOrbOptionButton();
-			this.tvNavigation = new System.Windows.Forms.TreeView();
-			this.pControls = new System.Windows.Forms.Panel();
+			this.tcMain = new System.Windows.Forms.TabControl();
+			this.tpEmployees = new System.Windows.Forms.TabPage();
+			this.tpDepartments = new System.Windows.Forms.TabPage();
+			this.tpLocations = new System.Windows.Forms.TabPage();
+			this.ucEmployeeView = new EmployeeView();
+			this.tcMain.SuspendLayout();
+			this.tpEmployees.SuspendLayout();
 			this.SuspendLayout();
-			// 
-			// ribbon1
-			// 
-			this.ribbon1.Font = new System.Drawing.Font("Segoe UI", 9F);
-			this.ribbon1.Location = new System.Drawing.Point(0, 0);
-			this.ribbon1.Minimized = false;
-			this.ribbon1.Name = "ribbon1";
-			// 
-			// 
-			// 
-			this.ribbon1.OrbDropDown.BorderRoundness = 8;
-			this.ribbon1.OrbDropDown.Location = new System.Drawing.Point(0, 0);
-			this.ribbon1.OrbDropDown.Name = "";
-			this.ribbon1.OrbDropDown.OptionItems.Add(this.ribbonOrbOptionButton1);
-			this.ribbon1.OrbDropDown.Size = new System.Drawing.Size(527, 72);
-			this.ribbon1.OrbDropDown.TabIndex = 0;
-			this.ribbon1.OrbImage = null;
-			this.ribbon1.RibbonTabFont = new System.Drawing.Font("Trebuchet MS", 9F);
-			this.ribbon1.Size = new System.Drawing.Size(1152, 52);
-			this.ribbon1.TabIndex = 0;
-			this.ribbon1.TabsMargin = new System.Windows.Forms.Padding(12, 26, 20, 0);
-			this.ribbon1.Text = "ribbon1";
-			this.ribbon1.ThemeColor = System.Windows.Forms.RibbonTheme.Blue;
 			// 
 			// ribbonOrbOptionButton1
 			// 
 			this.ribbonOrbOptionButton1.Image = ((System.Drawing.Image)(resources.GetObject("ribbonOrbOptionButton1.Image")));
 			this.ribbonOrbOptionButton1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbOptionButton1.SmallImage")));
-			this.ribbonOrbOptionButton1.Text = "Beenden";
 			// 
-			// tvNavigation
+			// tcMain
 			// 
-			this.tvNavigation.BackColor = System.Drawing.SystemColors.InactiveCaption;
-			this.tvNavigation.Location = new System.Drawing.Point(0, 50);
-			this.tvNavigation.Name = "tvNavigation";
-			treeNode9.Name = "nodeEmployeeEdit";
-			treeNode9.Text = "Mitarbeiter bearbeiten";
-			treeNode10.Name = "nodeEmployee";
-			treeNode10.Text = "Mitarbeiter";
-			treeNode11.Name = "nodeDepartment";
-			treeNode11.Text = "Abteilungen";
-			treeNode12.Name = "";
-			treeNode12.Text = "";
-			this.tvNavigation.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode10,
-            treeNode11,
-            treeNode12});
-			this.tvNavigation.ShowRootLines = false;
-			this.tvNavigation.Size = new System.Drawing.Size(153, 650);
-			this.tvNavigation.TabIndex = 1;
-			this.tvNavigation.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvNavigation_AfterSelect);
+			this.tcMain.Controls.Add(this.tpEmployees);
+			this.tcMain.Controls.Add(this.tpDepartments);
+			this.tcMain.Controls.Add(this.tpLocations);
+			this.tcMain.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tcMain.Location = new System.Drawing.Point(0, 0);
+			this.tcMain.Name = "tcMain";
+			this.tcMain.SelectedIndex = 0;
+			this.tcMain.Size = new System.Drawing.Size(1366, 561);
+			this.tcMain.TabIndex = 0;
+			this.tcMain.SelectedIndexChanged += new System.EventHandler(this.tcMain_SelectedIndexChanged);
 			// 
-			// pControls
+			// tpEmployees
 			// 
-			this.pControls.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.pControls.Location = new System.Drawing.Point(159, 56);
-			this.pControls.Name = "pControls";
-			this.pControls.Size = new System.Drawing.Size(993, 632);
-			this.pControls.TabIndex = 2;
+			this.tpEmployees.Controls.Add(this.ucEmployeeView);
+			this.tpEmployees.Location = new System.Drawing.Point(4, 22);
+			this.tpEmployees.Name = "tpEmployees";
+			this.tpEmployees.Padding = new System.Windows.Forms.Padding(3);
+			this.tpEmployees.Size = new System.Drawing.Size(1358, 535);
+			this.tpEmployees.TabIndex = 0;
+			this.tpEmployees.Text = "Mitarbeiter";
+			this.tpEmployees.UseVisualStyleBackColor = true;
+			// 
+			// tpDepartments
+			// 
+			this.tpDepartments.Location = new System.Drawing.Point(4, 22);
+			this.tpDepartments.Name = "tpDepartments";
+			this.tpDepartments.Padding = new System.Windows.Forms.Padding(3);
+			this.tpDepartments.Size = new System.Drawing.Size(754, 370);
+			this.tpDepartments.TabIndex = 1;
+			this.tpDepartments.Text = "Abteilungen";
+			this.tpDepartments.UseVisualStyleBackColor = true;
+			// 
+			// tpLocations
+			// 
+			this.tpLocations.Location = new System.Drawing.Point(4, 22);
+			this.tpLocations.Name = "tpLocations";
+			this.tpLocations.Size = new System.Drawing.Size(754, 370);
+			this.tpLocations.TabIndex = 2;
+			this.tpLocations.Text = "Standort";
+			this.tpLocations.UseVisualStyleBackColor = true;
+			// 
+			// ucEmployeeView
+			// 
+			this.ucEmployeeView.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.ucEmployeeView.Location = new System.Drawing.Point(3, 3);
+			this.ucEmployeeView.Name = "ucEmployeeView";
+			this.ucEmployeeView.Size = new System.Drawing.Size(1352, 529);
+			this.ucEmployeeView.TabIndex = 0;
 			// 
 			// EMClient
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1152, 695);
-			this.Controls.Add(this.pControls);
-			this.Controls.Add(this.tvNavigation);
-			this.Controls.Add(this.ribbon1);
+			this.ClientSize = new System.Drawing.Size(1366, 561);
+			this.Controls.Add(this.tcMain);
 			this.Name = "EMClient";
 			this.Text = "EMClient";
+			this.tcMain.ResumeLayout(false);
+			this.tpEmployees.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
 
         #endregion
 
-        private System.Windows.Forms.Ribbon ribbon1;
-        private System.Windows.Forms.RibbonOrbOptionButton ribbonOrbOptionButton1;
-        private System.Windows.Forms.TreeView tvNavigation;
-        private System.Windows.Forms.Panel pControls;
+		private System.Windows.Forms.RibbonOrbOptionButton ribbonOrbOptionButton1;
+		private System.Windows.Forms.TabControl tcMain;
+		private System.Windows.Forms.TabPage tpEmployees;
+		private System.Windows.Forms.TabPage tpDepartments;
+		private System.Windows.Forms.TabPage tpLocations;
+		private EmployeeView ucEmployeeView;
     }
 }
 

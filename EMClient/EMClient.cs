@@ -12,26 +12,13 @@ namespace EMClient
 {
 	public partial class EMClient : Form
 	{
-			
-		private IPages Page;
 		public EMClient()
 		{
 			InitializeComponent();
 		}
 
-		private void tvNavigation_AfterSelect(object sender, TreeViewEventArgs e)
+		private void tcMain_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			switch (e.Node.Text.ToUpper())
-			{
-				case "MITARBEITER":
-					Page = new EmployeeView();
-					Page.GetControl().Dock = DockStyle.Fill;
-					break;
-				default:
-					pControls.Controls.Remove(Page.GetControl());
-					return;
-			}
-			pControls.Controls.Add(Page.GetControl());
 		}
 	}
 }

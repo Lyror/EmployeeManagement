@@ -40,6 +40,7 @@ namespace EMServer.SQL
 			return EMLib.Serialize.ToBase64(table);
 		}
 
+
 		[WebMethod]
 		public void InsertDepartment(string stringRow)
 		{
