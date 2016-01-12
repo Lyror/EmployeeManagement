@@ -24,13 +24,9 @@ namespace EMClient
 		{
 			return this;
 		}
-		RpcClient client = new RpcClient("http://nb72:8081/rpc", "Test");
+		RpcClient client = new RpcClient(Config.RpcConfigString, "Test");
 
-		private void button1_Click(object sender, EventArgs e)
-		{
-			
-			//table.Rows.First().Items.First();
-		}
+		List<int> deleteIdList = new List<int>();
 
 		private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
 		{
@@ -38,11 +34,14 @@ namespace EMClient
 
 		private void tsbLoad_Click(object sender, EventArgs e)
 		{
+			deleteIdList.Clear();
 			var result = client.CallSyncMethod("GetEmployees");
 			EmployeeTable table = Serialize.FromBase64<EmployeeTable>(result.ToString());
 			foreach (var row in table.Rows)
 			{
-				dgEmployeeView.Rows.Add(row.FirstName, row.LastName, row.Address, row.Birthday, row.Email, row.Phone, row.DateCount, row.HourCountPerDay, row.HourCountPerWeek, row.HolidaysPerYear);
+				int index = dgEmployeeView.Rows.Add(row.FirstName, row.LastName, row.Address, row.Birthday, row.Email, 
+					row.Phone, row.DateCount, row.HourCountPerDay, row.HourCountPerWeek, row.HolidaysPerYear);
+				dgEmployeeView.Rows[index].Tag = row.Id;
 			}
 		}
 
@@ -57,6 +56,7 @@ namespace EMClient
 				(
 					new EmployeeRow()
 						{
+							Id = Convert.ToInt32(row.Tag),
 							FirstName = row.Cells[0].Value.ToString(),
 							LastName = row.Cells[1].Value.ToString(),
 							Address = row.Cells[2].Value.ToString(),
@@ -72,10 +72,27 @@ namespace EMClient
 
 
 			client.CallSyncMethod("UpdateEmployee", Serialize.ToBase64(table));
+			client.CallSyncMethod("DeleteEmployees", deleteIdList);
 		}
 
 		private void dgEmployeeView_UserAddedRow(object sender, DataGridViewRowEventArgs e)
 		{
+		}
+
+		private void toolStripButton1_Click(object sender, EventArgs e)
+		{
+			var row = dgEmployeeView.SelectedRows[0];
+			MessageBox.Show(row.Tag.ToString());
+		}
+
+		private void dgEmployeeView_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
+		{
+			deleteIdList.Add(Convert.ToInt32(e.Row.Tag));
+		}
+
+		private void tsbNewEmployee_Click(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

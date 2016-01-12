@@ -30,9 +30,6 @@
         {
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmployeeView));
 			this.dgEmployeeView = new System.Windows.Forms.DataGridView();
-			this.tsActions = new System.Windows.Forms.ToolStrip();
-			this.tsbLoad = new System.Windows.Forms.ToolStripButton();
-			this.tsbSave = new System.Windows.Forms.ToolStripButton();
 			this.dgcFirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dgcLastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dgcAdress = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,6 +44,11 @@
 			this.dgcLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dgbDepartments = new System.Windows.Forms.DataGridViewButtonColumn();
 			this.dgbLocations = new System.Windows.Forms.DataGridViewButtonColumn();
+			this.tsActions = new System.Windows.Forms.ToolStrip();
+			this.tsbLoad = new System.Windows.Forms.ToolStripButton();
+			this.tsbSave = new System.Windows.Forms.ToolStripButton();
+			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+			this.tsbNewEmployee = new System.Windows.Forms.ToolStripButton();
 			((System.ComponentModel.ISupportInitialize)(this.dgEmployeeView)).BeginInit();
 			this.tsActions.SuspendLayout();
 			this.SuspendLayout();
@@ -77,37 +79,7 @@
 			this.dgEmployeeView.Size = new System.Drawing.Size(992, 337);
 			this.dgEmployeeView.TabIndex = 1;
 			this.dgEmployeeView.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgEmployeeView_UserAddedRow);
-			// 
-			// tsActions
-			// 
-			this.tsActions.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.tsActions.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-			this.tsActions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsbLoad,
-            this.tsbSave});
-			this.tsActions.Location = new System.Drawing.Point(0, 343);
-			this.tsActions.Name = "tsActions";
-			this.tsActions.Size = new System.Drawing.Size(995, 25);
-			this.tsActions.TabIndex = 2;
-			this.tsActions.Text = "toolStrip1";
-			// 
-			// tsbLoad
-			// 
-			this.tsbLoad.Image = ((System.Drawing.Image)(resources.GetObject("tsbLoad.Image")));
-			this.tsbLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsbLoad.Name = "tsbLoad";
-			this.tsbLoad.Size = new System.Drawing.Size(59, 22);
-			this.tsbLoad.Text = "Laden";
-			this.tsbLoad.Click += new System.EventHandler(this.tsbLoad_Click);
-			// 
-			// tsbSave
-			// 
-			this.tsbSave.Image = ((System.Drawing.Image)(resources.GetObject("tsbSave.Image")));
-			this.tsbSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsbSave.Name = "tsbSave";
-			this.tsbSave.Size = new System.Drawing.Size(79, 22);
-			this.tsbSave.Text = "Speichern";
-			this.tsbSave.Click += new System.EventHandler(this.tsbSave_Click);
+			this.dgEmployeeView.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgEmployeeView_UserDeletedRow);
 			// 
 			// dgcFirstName
 			// 
@@ -195,6 +167,57 @@
 			this.dgbLocations.Text = "Anzeigen";
 			this.dgbLocations.UseColumnTextForButtonValue = true;
 			// 
+			// tsActions
+			// 
+			this.tsActions.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.tsActions.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+			this.tsActions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsbLoad,
+            this.tsbNewEmployee,
+            this.tsbSave,
+            this.toolStripButton1});
+			this.tsActions.Location = new System.Drawing.Point(0, 343);
+			this.tsActions.Name = "tsActions";
+			this.tsActions.Size = new System.Drawing.Size(995, 25);
+			this.tsActions.TabIndex = 2;
+			this.tsActions.Text = "toolStrip1";
+			// 
+			// tsbLoad
+			// 
+			this.tsbLoad.Image = ((System.Drawing.Image)(resources.GetObject("tsbLoad.Image")));
+			this.tsbLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbLoad.Name = "tsbLoad";
+			this.tsbLoad.Size = new System.Drawing.Size(59, 22);
+			this.tsbLoad.Text = "Laden";
+			this.tsbLoad.Click += new System.EventHandler(this.tsbLoad_Click);
+			// 
+			// tsbSave
+			// 
+			this.tsbSave.Image = ((System.Drawing.Image)(resources.GetObject("tsbSave.Image")));
+			this.tsbSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbSave.Name = "tsbSave";
+			this.tsbSave.Size = new System.Drawing.Size(79, 22);
+			this.tsbSave.Text = "Speichern";
+			this.tsbSave.Click += new System.EventHandler(this.tsbSave_Click);
+			// 
+			// toolStripButton1
+			// 
+			this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+			this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButton1.Name = "toolStripButton1";
+			this.toolStripButton1.Size = new System.Drawing.Size(59, 22);
+			this.toolStripButton1.Text = "testen";
+			this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+			// 
+			// tsbNewEmployee
+			// 
+			this.tsbNewEmployee.Image = ((System.Drawing.Image)(resources.GetObject("tsbNewEmployee.Image")));
+			this.tsbNewEmployee.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbNewEmployee.Name = "tsbNewEmployee";
+			this.tsbNewEmployee.Size = new System.Drawing.Size(120, 22);
+			this.tsbNewEmployee.Text = "Neuer Mitarbeiter";
+			this.tsbNewEmployee.Click += new System.EventHandler(this.tsbNewEmployee_Click);
+			// 
 			// EmployeeView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -231,5 +254,7 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn dgcLocation;
 		private System.Windows.Forms.DataGridViewButtonColumn dgbDepartments;
 		private System.Windows.Forms.DataGridViewButtonColumn dgbLocations;
+		private System.Windows.Forms.ToolStripButton toolStripButton1;
+		private System.Windows.Forms.ToolStripButton tsbNewEmployee;
 	}
 }

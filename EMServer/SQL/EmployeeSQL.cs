@@ -104,7 +104,7 @@ namespace EMServer.SQL
 				if (i + 1 < fieldCount)
 					sb.Append(',');
 			}
-			
+
 			using (DbCommand command = Connection.GetCommand(sb.ToString()))
 			{
 				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.String).Value = row.FirstName;
@@ -124,40 +124,93 @@ namespace EMServer.SQL
 		[WebMethod]
 		public void UpdateEmployee(string EmTable)
 		{
+			StringBuilder sb = new StringBuilder("UPDATE employees  SET ");
+			sb.Append("firstName = ");
+			sb.Append(Connection.ParamMarker("var0"));
+			sb.Append(", ");
+			sb.Append("lastName = ");
+			sb.Append(Connection.ParamMarker("var1"));
+			sb.Append(", ");
+			sb.Append("adress = ");
+			sb.Append(Connection.ParamMarker("var2"));
+			sb.Append(", ");
+			sb.Append("birthday = ");
+			sb.Append(Connection.ParamMarker("var3"));
+			sb.Append(", ");
+			sb.Append("email = ");
+			sb.Append(Connection.ParamMarker("var4"));
+			sb.Append(", ");
+			sb.Append("phone = ");
+			sb.Append(Connection.ParamMarker("var5"));
+			sb.Append(", ");
+			sb.Append("dateCount = ");
+			sb.Append(Connection.ParamMarker("var6"));
+			sb.Append(", ");
+			sb.Append("hourCountPerDay = ");
+			sb.Append(Connection.ParamMarker("var7"));
+			sb.Append(", ");
+			sb.Append("holidaysPerYear = ");
+			sb.Append(Connection.ParamMarker("var8"));
+			sb.Append(" WHERE id = ");
+			sb.Append(Connection.ParamMarker("idParam"));
+
 			Connection.BeginTransaction();
-			foreach (var row in Serialize.FromBase64<EmployeeTable>(EmTable).Rows)
-			{
 
-			StringBuilder sb = new StringBuilder("UPDATE employees firstName, lastName, adress, birthday, email, phone, dateCount, hourCountPerDay, holidaysPerYear) Values (");
 
-			int fieldCount = 9;
-
-			for (int i = 0; i < fieldCount; i++)
-			{
-				sb.Append(Connection.ParamMarker("var" + i));
-
-				if (i + 1 < fieldCount)
-					sb.Append(',');
-			}
-
-			sb.Append(')');
-			
 			using (DbCommand command = Connection.GetCommand(sb.ToString()))
 			{
-				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.String).Value = row.FirstName;
-				Connection.AddParam(command, Connection.ParamMarker("var1"), System.Data.DbType.String).Value = row.LastName;
-				Connection.AddParam(command, Connection.ParamMarker("var2"), System.Data.DbType.String).Value = row.Address;
-				Connection.AddParam(command, Connection.ParamMarker("var3"), System.Data.DbType.DateTime).Value = row.Birthday;
-				Connection.AddParam(command, Connection.ParamMarker("var4"), System.Data.DbType.String).Value = row.Email;
-				Connection.AddParam(command, Connection.ParamMarker("var5"), System.Data.DbType.String).Value = row.Phone;
-				Connection.AddParam(command, Connection.ParamMarker("var6"), System.Data.DbType.Int32).Value = row.DateCount;
-				Connection.AddParam(command, Connection.ParamMarker("var7"), System.Data.DbType.Int32).Value = row.HourCountPerDay;
-				Connection.AddParam(command, Connection.ParamMarker("var8"), System.Data.DbType.Int32).Value = row.HolidaysPerYear;
+				foreach (var row in Serialize.FromBase64<EmployeeTable>(EmTable).Rows)
+				{
+					Connection.AddParam(command, Connection.ParamMarker("idParam"), System.Data.DbType.Int32).Value = row.Id;
+					Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.String).Value = row.FirstName;
+					Connection.AddParam(command, Connection.ParamMarker("var1"), System.Data.DbType.String).Value = row.LastName;
+					Connection.AddParam(command, Connection.ParamMarker("var2"), System.Data.DbType.String).Value = row.Address;
+					Connection.AddParam(command, Connection.ParamMarker("var3"), System.Data.DbType.DateTime).Value = row.Birthday;
+					Connection.AddParam(command, Connection.ParamMarker("var4"), System.Data.DbType.String).Value = row.Email;
+					Connection.AddParam(command, Connection.ParamMarker("var5"), System.Data.DbType.String).Value = row.Phone;
+					Connection.AddParam(command, Connection.ParamMarker("var6"), System.Data.DbType.Int32).Value = row.DateCount;
+					Connection.AddParam(command, Connection.ParamMarker("var7"), System.Data.DbType.Int32).Value = row.HourCountPerDay;
+					Connection.AddParam(command, Connection.ParamMarker("var8"), System.Data.DbType.Int32).Value = row.HolidaysPerYear;
 
-				command.ExecuteNonQuery();
-			}
+					command.ExecuteNonQuery();
+					command.Parameters.Clear();
+				}
 			}
 			Connection.Commit();
+		}
+
+		[WebMethod]
+		public void DeleteEmployee(int id)
+		{
+			using (DbCommand command = Connection.GetCommand("DELETE FROM employee WHERE id = " + Connection.ParamMarker("var0")))
+			{
+				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.Int32).Value = id;
+				command.ExecuteNonQuery();
+			}
+		}
+
+		[WebMethod]
+		public void DeleteEmployees(List<int> ids)
+		{
+			try
+			{
+				Connection.BeginTransaction();
+				using (DbCommand command = Connection.GetCommand("DELETE FROM employee WHERE id = " + Connection.ParamMarker("var0")))
+				{
+					Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.Int32);
+					foreach (var id in ids)
+					{
+						command.Parameters[0].Value = id;
+						command.ExecuteNonQuery();
+					}
+				}
+
+				Connection.Commit();
+			}
+			catch
+			{
+				Connection.Rollback();
+			}
 		}
 	}
 }

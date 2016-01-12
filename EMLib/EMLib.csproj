@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.cs" />
     <Compile Include="DepartmentGroup\DepartmentGroupRow.cs" />
     <Compile Include="DepartmentGroup\DepartmentGroupTable.cs" />
     <Compile Include="Departments\DepartmentRow.cs" />
