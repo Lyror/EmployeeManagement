@@ -112,6 +112,7 @@
     <Compile Include="SQL\DepartmentGroupSQL.cs" />
     <Compile Include="SQL\DepartmentSQL.cs" />
     <Compile Include="SQL\EmployeeSQL.cs" />
+    <Compile Include="SQL\LocationsGroupSQL.cs" />
     <Compile Include="SQL\LocationSQL.cs" />
     <Compile Include="SQL\SQL.cs" />
     <Compile Include="WebServer.cs" />

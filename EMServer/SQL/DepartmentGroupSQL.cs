@@ -51,7 +51,7 @@ namespace EMServer.SQL
 				int result = 0;
 				if (int.TryParse(employeeIdOrEmail.ToString(), out result))
 				{
-					sql = "select d.name from deparmentGroup as dg " +
+					sql = "select d.name from departmentGroup as dg " +
 							"INNER JOIN departments as d on dg.departmentId = d.id " +
 							"where dg.employeeId = " + Connection.ParamMarker("var0");
 					Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.Int32).Value = Convert.ToInt32(employeeIdOrEmail);
@@ -59,7 +59,7 @@ namespace EMServer.SQL
 				}
 				else
 				{
-					sql = "select d.name from deparmentGroup as dg " +
+					sql = "select d.name from departmentGroup as dg " +
 							"INNER JOIN departments as d on dg.departmentId = d.id " +
 							"inner join employees as e on dg.employeeId = e.id " +
 							"where e.email = " + Connection.ParamMarker("var0");
@@ -80,23 +80,22 @@ namespace EMServer.SQL
 		}
 
 		[WebMethod]
-		public void InsertDepartmentGroup(string stringRow)
+		public void InsertDepartmentGroup(int employeeId, string departmentId)
 		{
-			DepartmentGroupRow row = EMLib.Serialize.FromBase64<DepartmentGroupRow>(stringRow);
-			using (DbCommand command = Connection.GetCommand("INSERT INTO DepartmentGroup (EmployeeId, DepartmentId) Values ( " + Connection.ParamMarker("var0") + ", " + Connection.ParamMarker("var1") + " )"))
+			using (DbCommand command = Connection.GetCommand("INSERT INTO departmentGroup (employeeId, departmentId) Values ( " + Connection.ParamMarker("var0") + ", " + Connection.ParamMarker("var1") + " )"))
 			{
-				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.Int32).Value = row.EmployeeId;
-				Connection.AddParam(command, Connection.ParamMarker("var1"), System.Data.DbType.Int32).Value = row.DepartmentId;
+				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.Int32).Value = employeeId;
+				Connection.AddParam(command, Connection.ParamMarker("var1"), System.Data.DbType.Int32).Value = departmentId;
 				command.ExecuteNonQuery();
 			}
 		}
 
-		public void InsertDepartmentGroup(DepartmentGroupRow row)
+		[WebMethod]
+		public void DeleteDepartmentGroup(int employeeId)
 		{
-			using (DbCommand command = Connection.GetCommand("INSERT INTO DepartmentGroup (EmployeeId, DepartmentId) Values ( " + Connection.ParamMarker("var0") + ", " + Connection.ParamMarker("var1") + " )"))
+			using (DbCommand command = Connection.GetCommand("DELETE FROM departmentGroup WHERE EmployeeId = " + Connection.ParamMarker("var0")))
 			{
-				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.Int32).Value = row.EmployeeId;
-				Connection.AddParam(command, Connection.ParamMarker("var1"), System.Data.DbType.Int32).Value = row.DepartmentId;
+				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.Int32).Value = employeeId;
 				command.ExecuteNonQuery();
 			}
 		}

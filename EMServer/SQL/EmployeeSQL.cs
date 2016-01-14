@@ -21,12 +21,10 @@ namespace EMServer.SQL
 
 		}
 
-		private const string employeeView = "employeeView";
-
 		[WebMethod]
 		public string GetEmployees()
 		{
-			string sql = "select * from employeeView";
+			string sql = "select * from employees";
 
 			EmployeeTable table = new EmployeeTable();
 			using (var command = Connection.GetCommand(sql))
@@ -42,8 +40,8 @@ namespace EMServer.SQL
 								Id = Convert.ToInt32(reader["id"]),
 								FirstName = reader["firstName"].ToString(),
 								LastName = reader["lastName"].ToString(),
-								Address = reader["adress"].ToString(),
-								Birthday = DateTime.Parse(reader["birthday"].ToString()),
+								Adress = reader["adress"].ToString(),
+								Birthday = reader.IsDBNull(reader.GetOrdinal("birthday")) == true ? DateTime.MinValue : Convert.ToDateTime(reader["birthday"]),
 								Email = reader["email"].ToString(),
 								Phone = reader["phone"].ToString(),
 								DateCount = Convert.ToInt32(reader["dateCount"]),
@@ -61,7 +59,7 @@ namespace EMServer.SQL
 		[WebMethod]
 		public string GetEmployee(int id)
 		{
-			string sql = "SELECT * FROM " + employeeView + " WHERE id = " + id;
+			string sql = "SELECT * FROM employees WHERE id = " + id;
 
 			EmployeeRow row = null;
 			using (var command = Connection.GetCommand(sql))
@@ -74,8 +72,8 @@ namespace EMServer.SQL
 							{
 								FirstName = reader["firstName"].ToString(),
 								LastName = reader["lastName"].ToString(),
-								Address = reader["adress"].ToString(),
-								Birthday = DateTime.Parse(reader["birthday"].ToString()),
+								Adress = reader["adress"].ToString(),
+								Birthday = reader["birthday"] == null ? DateTime.MinValue : DateTime.Parse(reader["birthday"].ToString()),
 								Email = reader["email"].ToString(),
 								Phone = reader["phone"].ToString(),
 								DateCount = Convert.ToInt32(reader["dateCount"]),
@@ -88,36 +86,99 @@ namespace EMServer.SQL
 			return Serialize.ToBase64(row);
 		}
 
+		//[WebMethod]
+		//public void InsertEmployee(string em)
+		//{
+		//	EmployeeRow row = Serialize.FromBase64<EmployeeRow>(em);
+
+		//	StringBuilder sb = new StringBuilder("INSERT INTO employees (firstName, lastName, adress, birthday, email, phone,dateCount, hourCountPerDay, holidaysPerYear) Values (");
+
+		//	int fieldCount = 9;
+
+		//	for (int i = 0; i < fieldCount; i++)
+		//	{
+		//		sb.Append(Connection.ParamMarker("var" + i));
+
+		//		if (i + 1 < fieldCount)
+		//			sb.Append(',');
+		//	}
+
+		//	using (DbCommand command = Connection.GetCommand(sb.ToString()))
+		//	{
+		//		Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.String).Value = row.FirstName;
+		//		Connection.AddParam(command, Connection.ParamMarker("var1"), System.Data.DbType.String).Value = row.LastName;
+		//		Connection.AddParam(command, Connection.ParamMarker("var2"), System.Data.DbType.String).Value = row.Adress;
+		//		Connection.AddParam(command, Connection.ParamMarker("var3"), System.Data.DbType.DateTime).Value = row.Birthday;
+		//		Connection.AddParam(command, Connection.ParamMarker("var4"), System.Data.DbType.String).Value = row.Email;
+		//		Connection.AddParam(command, Connection.ParamMarker("var5"), System.Data.DbType.String).Value = row.Phone;
+		//		Connection.AddParam(command, Connection.ParamMarker("var6"), System.Data.DbType.Int32).Value = row.DateCount;
+		//		Connection.AddParam(command, Connection.ParamMarker("var7"), System.Data.DbType.Int32).Value = row.HourCountPerDay;
+		//		Connection.AddParam(command, Connection.ParamMarker("var8"), System.Data.DbType.Int32).Value = row.HolidaysPerYear;
+
+		//		command.ExecuteNonQuery();
+		//	}
+		//}
+
 		[WebMethod]
-		public void InsertEmployee(string em)
+		public int InsertEmployee(string firstName, string lastName)
 		{
-			EmployeeRow row = Serialize.FromBase64<EmployeeRow>(em);
-
-			StringBuilder sb = new StringBuilder("INSERT INTO employees (firstName, lastName, adress, birthday, email, phone,dateCount, hourCountPerDay, holidaysPerYear) Values (");
-
-			int fieldCount = 9;
-
-			for (int i = 0; i < fieldCount; i++)
+			Connection.BeginTransaction();
+			try
 			{
-				sb.Append(Connection.ParamMarker("var" + i));
+				StringBuilder sb = new StringBuilder("INSERT INTO employees (firstName, lastName) Values (");
 
-				if (i + 1 < fieldCount)
-					sb.Append(',');
+				int fieldCount = 2;
+
+				for (int i = 0; i < fieldCount; i++)
+				{
+					sb.Append(Connection.ParamMarker("var" + i));
+
+					if (i + 1 < fieldCount)
+						sb.Append(',');
+				}
+				sb.Append(')');
+
+				using (DbCommand command = Connection.GetCommand(sb.ToString()))
+				{
+					Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.String).Value = firstName;
+					Connection.AddParam(command, Connection.ParamMarker("var1"), System.Data.DbType.String).Value = lastName;
+					command.ExecuteNonQuery();
+				}
+				using (var command = Connection.GetCommand("select id from employees as e where e.firstName = " + Connection.ParamMarker("var0") + " and e.lastName = " + Connection.ParamMarker("var1")))
+				{
+
+					Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.String).Value = firstName;
+					Connection.AddParam(command, Connection.ParamMarker("var1"), System.Data.DbType.String).Value = lastName;
+					var id = Convert.ToInt32(command.ExecuteScalar());
+					Connection.Commit();
+					return id;
+				}
 			}
+			catch
+			{
+				Connection.Rollback();
+				return 0;
+			}
+		}
+
+		[WebMethod]
+		public void UpdateEmployeeColumn(int id, string column, object value)
+		{
+			StringBuilder sb = new StringBuilder("UPDATE employees SET ");
+			sb.Append(column);
+			sb.Append(" = ");
+			sb.Append(Connection.ParamMarker("var0"));
+			sb.Append(" WHERE id = ");
+			sb.Append(Connection.ParamMarker("idParam"));
 
 			using (DbCommand command = Connection.GetCommand(sb.ToString()))
 			{
-				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.String).Value = row.FirstName;
-				Connection.AddParam(command, Connection.ParamMarker("var1"), System.Data.DbType.String).Value = row.LastName;
-				Connection.AddParam(command, Connection.ParamMarker("var2"), System.Data.DbType.String).Value = row.Address;
-				Connection.AddParam(command, Connection.ParamMarker("var3"), System.Data.DbType.DateTime).Value = row.Birthday;
-				Connection.AddParam(command, Connection.ParamMarker("var4"), System.Data.DbType.String).Value = row.Email;
-				Connection.AddParam(command, Connection.ParamMarker("var5"), System.Data.DbType.String).Value = row.Phone;
-				Connection.AddParam(command, Connection.ParamMarker("var6"), System.Data.DbType.Int32).Value = row.DateCount;
-				Connection.AddParam(command, Connection.ParamMarker("var7"), System.Data.DbType.Int32).Value = row.HourCountPerDay;
-				Connection.AddParam(command, Connection.ParamMarker("var8"), System.Data.DbType.Int32).Value = row.HolidaysPerYear;
+				Connection.AddParam(command, Connection.ParamMarker("idParam"), System.Data.DbType.Int32).Value = id;
+				Connection.AddParam(command, Connection.ParamMarker("var0"), Connection.Fields(false, "employees").FirstOrDefault(c => c.Name.ToUpper() == column.ToUpper()).DataTypeName == "date" ? System.Data.DbType.Date :
+					Connection.DataTypeToDbType(Connection.Fields(false, "employees").FirstOrDefault(c => c.Name.ToUpper() == column.ToUpper()))).Value = value;
 
 				command.ExecuteNonQuery();
+				command.Parameters.Clear();
 			}
 		}
 
@@ -164,7 +225,7 @@ namespace EMServer.SQL
 					Connection.AddParam(command, Connection.ParamMarker("idParam"), System.Data.DbType.Int32).Value = row.Id;
 					Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.String).Value = row.FirstName;
 					Connection.AddParam(command, Connection.ParamMarker("var1"), System.Data.DbType.String).Value = row.LastName;
-					Connection.AddParam(command, Connection.ParamMarker("var2"), System.Data.DbType.String).Value = row.Address;
+					Connection.AddParam(command, Connection.ParamMarker("var2"), System.Data.DbType.String).Value = row.Adress;
 					Connection.AddParam(command, Connection.ParamMarker("var3"), System.Data.DbType.DateTime).Value = row.Birthday;
 					Connection.AddParam(command, Connection.ParamMarker("var4"), System.Data.DbType.String).Value = row.Email;
 					Connection.AddParam(command, Connection.ParamMarker("var5"), System.Data.DbType.String).Value = row.Phone;
@@ -195,7 +256,7 @@ namespace EMServer.SQL
 			try
 			{
 				Connection.BeginTransaction();
-				using (DbCommand command = Connection.GetCommand("DELETE FROM employee WHERE id = " + Connection.ParamMarker("var0")))
+				using (DbCommand command = Connection.GetCommand("DELETE FROM employees WHERE id = " + Connection.ParamMarker("var0")))
 				{
 					Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.Int32);
 					foreach (var id in ids)

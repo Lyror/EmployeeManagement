@@ -66,9 +66,9 @@ namespace EMServer.SQL
 		}
 
 		[WebMethod]
-		public void UpdateDepartmentName(string newName)
+		public void DeleteLocation(string newName)
 		{
-			using (DbCommand command = Connection.GetCommand("UPDATE departments SET name = " + Connection.ParamMarker("var0") + ""))
+			using (DbCommand command = Connection.GetCommand("DELETE FROM location WHERE name = " + Connection.ParamMarker("var0")))
 			{
 				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.String).Value = newName;
 				command.ExecuteNonQuery();

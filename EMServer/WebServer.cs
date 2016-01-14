@@ -53,7 +53,10 @@ namespace EMServer
 		{
 			return new List<SimpleWebServiceDescriptor>()
 			{
-				new SimpleWebServiceDescriptor("Test", new SQL.EmployeeSQL(ConnectionString))
+				new SimpleWebServiceDescriptor("Employee", new SQL.EmployeeSQL(ConnectionString)),
+				new SimpleWebServiceDescriptor("Departments", new SQL.DepartmentSQL(ConnectionString)),
+				new SimpleWebServiceDescriptor("DepartmentGroup", new SQL.DepartmentGroupSQL(ConnectionString)),
+				new SimpleWebServiceDescriptor("LocationsGroup", new SQL.LocationsGroupSQL(ConnectionString))
 			};
 		}
 	}

@@ -30,13 +30,20 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EMClient));
 			this.ribbonOrbOptionButton1 = new System.Windows.Forms.RibbonOrbOptionButton();
-			this.tcMain = new System.Windows.Forms.TabControl();
-			this.tpEmployees = new System.Windows.Forms.TabPage();
-			this.tpDepartments = new System.Windows.Forms.TabPage();
-			this.tpLocations = new System.Windows.Forms.TabPage();
-			this.ucEmployeeView = new EmployeeView();
-			this.tcMain.SuspendLayout();
-			this.tpEmployees.SuspendLayout();
+			this.scMain = new System.Windows.Forms.SplitContainer();
+			this.lvEmployees = new System.Windows.Forms.ListView();
+			this.chName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.tsActions = new System.Windows.Forms.ToolStrip();
+			this.tsbNewEmployee = new System.Windows.Forms.ToolStripButton();
+			this.tsbDeleteEmployee = new System.Windows.Forms.ToolStripButton();
+			this.pgEmployee = new System.Windows.Forms.PropertyGrid();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.tsbLocations = new System.Windows.Forms.ToolStripButton();
+			((System.ComponentModel.ISupportInitialize)(this.scMain)).BeginInit();
+			this.scMain.Panel1.SuspendLayout();
+			this.scMain.Panel2.SuspendLayout();
+			this.scMain.SuspendLayout();
+			this.tsActions.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// ribbonOrbOptionButton1
@@ -44,67 +51,121 @@
 			this.ribbonOrbOptionButton1.Image = ((System.Drawing.Image)(resources.GetObject("ribbonOrbOptionButton1.Image")));
 			this.ribbonOrbOptionButton1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbOptionButton1.SmallImage")));
 			// 
-			// tcMain
+			// scMain
 			// 
-			this.tcMain.Controls.Add(this.tpEmployees);
-			this.tcMain.Controls.Add(this.tpDepartments);
-			this.tcMain.Controls.Add(this.tpLocations);
-			this.tcMain.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tcMain.Location = new System.Drawing.Point(0, 0);
-			this.tcMain.Name = "tcMain";
-			this.tcMain.SelectedIndex = 0;
-			this.tcMain.Size = new System.Drawing.Size(1366, 561);
-			this.tcMain.TabIndex = 0;
-			this.tcMain.SelectedIndexChanged += new System.EventHandler(this.tcMain_SelectedIndexChanged);
+			this.scMain.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.scMain.Location = new System.Drawing.Point(0, 0);
+			this.scMain.Name = "scMain";
 			// 
-			// tpEmployees
+			// scMain.Panel1
 			// 
-			this.tpEmployees.Controls.Add(this.ucEmployeeView);
-			this.tpEmployees.Location = new System.Drawing.Point(4, 22);
-			this.tpEmployees.Name = "tpEmployees";
-			this.tpEmployees.Padding = new System.Windows.Forms.Padding(3);
-			this.tpEmployees.Size = new System.Drawing.Size(1358, 535);
-			this.tpEmployees.TabIndex = 0;
-			this.tpEmployees.Text = "Mitarbeiter";
-			this.tpEmployees.UseVisualStyleBackColor = true;
+			this.scMain.Panel1.Controls.Add(this.lvEmployees);
+			this.scMain.Panel1.Controls.Add(this.tsActions);
 			// 
-			// tpDepartments
+			// scMain.Panel2
 			// 
-			this.tpDepartments.Location = new System.Drawing.Point(4, 22);
-			this.tpDepartments.Name = "tpDepartments";
-			this.tpDepartments.Padding = new System.Windows.Forms.Padding(3);
-			this.tpDepartments.Size = new System.Drawing.Size(754, 370);
-			this.tpDepartments.TabIndex = 1;
-			this.tpDepartments.Text = "Abteilungen";
-			this.tpDepartments.UseVisualStyleBackColor = true;
+			this.scMain.Panel2.Controls.Add(this.pgEmployee);
+			this.scMain.Size = new System.Drawing.Size(790, 500);
+			this.scMain.SplitterDistance = 263;
+			this.scMain.TabIndex = 0;
 			// 
-			// tpLocations
+			// lvEmployees
 			// 
-			this.tpLocations.Location = new System.Drawing.Point(4, 22);
-			this.tpLocations.Name = "tpLocations";
-			this.tpLocations.Size = new System.Drawing.Size(754, 370);
-			this.tpLocations.TabIndex = 2;
-			this.tpLocations.Text = "Standort";
-			this.tpLocations.UseVisualStyleBackColor = true;
+			this.lvEmployees.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.lvEmployees.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chName});
+			this.lvEmployees.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+			this.lvEmployees.HideSelection = false;
+			this.lvEmployees.Location = new System.Drawing.Point(3, 28);
+			this.lvEmployees.Name = "lvEmployees";
+			this.lvEmployees.Size = new System.Drawing.Size(257, 469);
+			this.lvEmployees.TabIndex = 1;
+			this.lvEmployees.UseCompatibleStateImageBehavior = false;
+			this.lvEmployees.View = System.Windows.Forms.View.Details;
+			this.lvEmployees.SelectedIndexChanged += new System.EventHandler(this.lvEmployees_SelectedIndexChanged);
 			// 
-			// ucEmployeeView
+			// chName
 			// 
-			this.ucEmployeeView.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.ucEmployeeView.Location = new System.Drawing.Point(3, 3);
-			this.ucEmployeeView.Name = "ucEmployeeView";
-			this.ucEmployeeView.Size = new System.Drawing.Size(1352, 529);
-			this.ucEmployeeView.TabIndex = 0;
+			this.chName.Text = "Name";
+			this.chName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.chName.Width = 250;
+			// 
+			// tsActions
+			// 
+			this.tsActions.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+			this.tsActions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsbNewEmployee,
+            this.tsbDeleteEmployee,
+            this.toolStripSeparator1,
+            this.tsbLocations});
+			this.tsActions.Location = new System.Drawing.Point(0, 0);
+			this.tsActions.Name = "tsActions";
+			this.tsActions.Size = new System.Drawing.Size(263, 25);
+			this.tsActions.TabIndex = 0;
+			this.tsActions.Text = "toolStrip1";
+			// 
+			// tsbNewEmployee
+			// 
+			this.tsbNewEmployee.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tsbNewEmployee.Image = ((System.Drawing.Image)(resources.GetObject("tsbNewEmployee.Image")));
+			this.tsbNewEmployee.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbNewEmployee.Name = "tsbNewEmployee";
+			this.tsbNewEmployee.Size = new System.Drawing.Size(23, 22);
+			this.tsbNewEmployee.Text = "Mitarbeiter hinzufügen";
+			this.tsbNewEmployee.Click += new System.EventHandler(this.tsbNewEmployee_Click);
+			// 
+			// tsbDeleteEmployee
+			// 
+			this.tsbDeleteEmployee.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tsbDeleteEmployee.Enabled = false;
+			this.tsbDeleteEmployee.Image = ((System.Drawing.Image)(resources.GetObject("tsbDeleteEmployee.Image")));
+			this.tsbDeleteEmployee.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbDeleteEmployee.Name = "tsbDeleteEmployee";
+			this.tsbDeleteEmployee.Size = new System.Drawing.Size(23, 22);
+			this.tsbDeleteEmployee.Text = "Mitarbeiter löschen";
+			this.tsbDeleteEmployee.Click += new System.EventHandler(this.tsbDeleteEmployee_Click);
+			// 
+			// pgEmployee
+			// 
+			this.pgEmployee.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.pgEmployee.Location = new System.Drawing.Point(0, 0);
+			this.pgEmployee.Name = "pgEmployee";
+			this.pgEmployee.Size = new System.Drawing.Size(523, 500);
+			this.pgEmployee.TabIndex = 0;
+			this.pgEmployee.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.pgEmployee_PropertyValueChanged);
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+			// 
+			// tsbLocations
+			// 
+			this.tsbLocations.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tsbLocations.Image = ((System.Drawing.Image)(resources.GetObject("tsbLocations.Image")));
+			this.tsbLocations.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbLocations.Name = "tsbLocations";
+			this.tsbLocations.Size = new System.Drawing.Size(23, 22);
+			this.tsbLocations.Text = "Standorte verändern";
+			this.tsbLocations.Click += new System.EventHandler(this.tsbLocations_Click);
 			// 
 			// EMClient
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1366, 561);
-			this.Controls.Add(this.tcMain);
+			this.ClientSize = new System.Drawing.Size(790, 500);
+			this.Controls.Add(this.scMain);
 			this.Name = "EMClient";
 			this.Text = "EMClient";
-			this.tcMain.ResumeLayout(false);
-			this.tpEmployees.ResumeLayout(false);
+			this.scMain.Panel1.ResumeLayout(false);
+			this.scMain.Panel1.PerformLayout();
+			this.scMain.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.scMain)).EndInit();
+			this.scMain.ResumeLayout(false);
+			this.tsActions.ResumeLayout(false);
+			this.tsActions.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -112,11 +173,15 @@
         #endregion
 
 		private System.Windows.Forms.RibbonOrbOptionButton ribbonOrbOptionButton1;
-		private System.Windows.Forms.TabControl tcMain;
-		private System.Windows.Forms.TabPage tpEmployees;
-		private System.Windows.Forms.TabPage tpDepartments;
-		private System.Windows.Forms.TabPage tpLocations;
-		private EmployeeView ucEmployeeView;
+		private System.Windows.Forms.SplitContainer scMain;
+		private System.Windows.Forms.ListView lvEmployees;
+		private System.Windows.Forms.ToolStrip tsActions;
+		private System.Windows.Forms.ToolStripButton tsbNewEmployee;
+		private System.Windows.Forms.ToolStripButton tsbDeleteEmployee;
+		private System.Windows.Forms.PropertyGrid pgEmployee;
+		private System.Windows.Forms.ColumnHeader chName;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+		private System.Windows.Forms.ToolStripButton tsbLocations;
     }
 }
 

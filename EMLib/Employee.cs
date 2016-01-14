@@ -6,17 +6,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EMLib.Employees
+namespace EMLib
 {
 	[TypeConverter(typeof(PropertySorter))]
 	[Serializable]
-	public class EmployeeRow
+	public class Employee
 	{
-		//RpcClient DepartmentClient = new RpcClient(Config.RpcConfigString, "Departments");
+		RpcClient DepartmentClient = new RpcClient(Config.RpcConfigString, "Departments");
+
+		public Employee()
+		{
+		}
 
 		public void LoadDepartments()
 		{
 			departments = new CheckedListBox();
+			departments.EmployeeId = Id;
+			var result = DepartmentClient.CallSyncMethod("GetDepartmentsByEmployeeId", Id);
+
+			departments.Items = (Dictionary<string, bool>)result;
 		}
 
 		int hourPerDay, dateCount;
@@ -37,7 +45,7 @@ namespace EMLib.Employees
 		[Category("Mitarbeiter")]
 		[DisplayName("Adresse"), PropertyOrder(3)]
 		[Description("Adresse des Mitarbeiters")]
-		public String Adress { get; set; }
+		public String Address { get; set; }
 
 		[Category("Mitarbeiter")]
 		[DisplayName("Geburtsdatum"), PropertyOrder(4)]
@@ -77,7 +85,7 @@ namespace EMLib.Employees
 			set
 			{
 				hourPerDay = value;
-				if (Refresh != null)
+				if (Refresh != null) 
 					Refresh();
 			}
 		}
@@ -95,10 +103,10 @@ namespace EMLib.Employees
 		[Category("Abteilungen")]
 		[DisplayName("Abteilungen"), PropertyOrder(10)]
 		[Description("Abteilungen des Mitarbeiters")]
-		public CheckedListBox departments { get; set; }
+		public CheckedListBox departments { get; set; }		
 
 		public event Action Refresh;
-
+		
 
 	}
 }

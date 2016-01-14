@@ -81,11 +81,11 @@
     <Compile Include="EMClient.Designer.cs">
       <DependentUpon>EMClient.cs</DependentUpon>
     </Compile>
-    <Compile Include="EmployeeView.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="Locations.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EmployeeView.Designer.cs">
-      <DependentUpon>EmployeeView.cs</DependentUpon>
+    <Compile Include="Locations.Designer.cs">
+      <DependentUpon>Locations.cs</DependentUpon>
     </Compile>
     <Compile Include="NewEmployee.cs">
       <SubType>Form</SubType>
@@ -98,8 +98,8 @@
     <EmbeddedResource Include="EMClient.resx">
       <DependentUpon>EMClient.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EmployeeView.resx">
-      <DependentUpon>EmployeeView.cs</DependentUpon>
+    <EmbeddedResource Include="Locations.resx">
+      <DependentUpon>Locations.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewEmployee.resx">
       <DependentUpon>NewEmployee.cs</DependentUpon>

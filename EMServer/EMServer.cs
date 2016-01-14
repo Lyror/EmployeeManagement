@@ -30,6 +30,7 @@ namespace EMServer
 
 			server = new WebServer();
 			ConnectionString = ConfigLoader.LoadConnectionString();
+			btServerStart_Click(null, null);
 		}
 
 		private void btServerStart_Click(object sender, EventArgs e)
