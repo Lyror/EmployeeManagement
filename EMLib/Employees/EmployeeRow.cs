@@ -92,7 +92,7 @@ namespace EMLib.Employees
 		[Description("Urlaubstage des Mitarbeiters")]
 		public int HolidaysPerYear { get; set; }
 
-		[Category("Abteilungen")]
+		[Category("Standorte")]
 		[DisplayName("Abteilungen"), PropertyOrder(10)]
 		[Description("Abteilungen des Mitarbeiters")]
 		public CheckedListBox departments { get; set; }

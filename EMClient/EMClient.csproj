@@ -87,11 +87,23 @@
     <Compile Include="Locations.Designer.cs">
       <DependentUpon>Locations.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewDepartment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewDepartment.Designer.cs">
+      <DependentUpon>NewDepartment.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewEmployee.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="NewEmployee.Designer.cs">
       <DependentUpon>NewEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewLocation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewLocation.Designer.cs">
+      <DependentUpon>NewLocation.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -101,8 +113,14 @@
     <EmbeddedResource Include="Locations.resx">
       <DependentUpon>Locations.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NewDepartment.resx">
+      <DependentUpon>NewDepartment.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewEmployee.resx">
       <DependentUpon>NewEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewLocation.resx">
+      <DependentUpon>NewLocation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

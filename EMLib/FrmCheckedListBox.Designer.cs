@@ -79,6 +79,7 @@
 			this.Controls.Add(this.clbChoise);
 			this.Name = "FrmCheckedListBox";
 			this.Text = "Auswahlliste";
+			this.Shown += new System.EventHandler(this.FrmCheckedListBox_Shown);
 			this.ResumeLayout(false);
 
 		}

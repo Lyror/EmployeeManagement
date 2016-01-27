@@ -15,13 +15,13 @@ namespace EMServer.SQL
 
 		}
 		[WebMethod]
-		public void GetLocationsAndDepartments()
+		public Dictionary<string, Dictionary<string, bool>> GetLocationsAndDepartments()
 		{
-			Dictionary<string, List<string>> items = new Dictionary<string, List<string>>();
+			Dictionary<string, Dictionary<string, bool>> items = new Dictionary<string, Dictionary<string, bool>>();
 
-			using (var command = Connection.GetCommand("select  l.name as location, d.name as department from locationsGroup as lg " +
-														"inner join departments as d on lg.departmentId = d.id " +
-														"inner join location as l on lg.locationId = l.id " +
+			using (var command = Connection.GetCommand("SELECT d.name as 'department', l.name as 'location', " +
+														"ISNULL((SELECT CASE WHEN lg.id > 0 then 1 end FROM locationsGroup as lg where " + 
+														"lg.departmentId = d.id and lg.locationId = l.id), 0) as hasRight FROM departments as d, location as l " +
 														"order by l.name, d.name"))
 			{
 				using (var reader = command.ExecuteReader())
@@ -30,15 +30,16 @@ namespace EMServer.SQL
 					{
 						if (items.ContainsKey(reader["location"].ToString()))
 						{
-							items[reader["location"].ToString()].Add(reader["department"].ToString());
+							items[reader["location"].ToString()].Add(reader["department"].ToString(), Convert.ToBoolean(reader["hasRight"]));
 						}
 						else
 						{
-							items.Add(reader["location"].ToString(), new List<string>() { reader["department"].ToString() });
+							items.Add(reader["location"].ToString(), new Dictionary<string, bool>() { {reader["department"].ToString(), Convert.ToBoolean(reader["hasRight"])}});
 						}
 					}
 				}
 			}
+			return items;
 		}
 
 		[WebMethod]
@@ -74,8 +75,8 @@ namespace EMServer.SQL
 				{
 					foreach (var department in location.Value)
 					{
-						Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.Int32).Value = location.Key;
-						Connection.AddParam(command, Connection.ParamMarker("var1"), System.Data.DbType.Int32).Value = department;
+						Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.String).Value = location.Key;
+						Connection.AddParam(command, Connection.ParamMarker("var1"), System.Data.DbType.String).Value = department;
 						command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}
@@ -86,7 +87,7 @@ namespace EMServer.SQL
 		[WebMethod]
 		public void DeleteLocationsGroup()
 		{
-			using (DbCommand command = Connection.GetCommand("DELETE FROM location"))
+			using (DbCommand command = Connection.GetCommand("DELETE FROM locationsGroup"))
 			{
 				command.ExecuteNonQuery();
 			}

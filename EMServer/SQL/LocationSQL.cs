@@ -1,5 +1,4 @@
 ﻿using acadGraph.Libs.RpcWebLib;
-using EMLib.Locations;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -18,9 +17,9 @@ namespace EMServer.SQL
 		}
 
 		[WebMethod]
-		public string GetLocations()
+		public Dictionary<int, string> GetLocations()
 		{
-			LocationTable table = new LocationTable();
+			Dictionary<int, string> table = new Dictionary<int, string>();
 
 			using (var command = Connection.GetCommand("SELECT * FROM location"))
 			{
@@ -28,41 +27,43 @@ namespace EMServer.SQL
 				{
 					while (reader.Read())
 					{
-						table.Rows.Add
-						(
-							new LocationRow()
-							{
-								Name = reader["name"].ToString()
-							}
-						);
+						table.Add(Convert.ToInt32(reader["id"]), reader["name"].ToString());
 					}
 				}
 			}
-			return EMLib.Serialize.ToBase64(table);
+			return table;
 		}
 
 		[WebMethod]
-		public string UpdateLocation(string newName)
+		public void UpdateLocation(int id, string newName)
 		{
-			LocationTable table = new LocationTable();
-
-			using (var command = Connection.GetCommand("SELECT * FROM location"))
+			using (DbCommand command = Connection.GetCommand("UPDATE location SET name = " + Connection.ParamMarker("var0") + " WHERE id = " + Connection.ParamMarker("var1")))
 			{
-				using (var reader = command.ExecuteReader())
-				{
-					while (reader.Read())
-					{
-						table.Rows.Add
-						(
-							new LocationRow()
-							{
-								Name = reader["name"].ToString()
-							}
-						);
-					}
-				}
+				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.String).Value = newName;
+				Connection.AddParam(command, Connection.ParamMarker("var1"), System.Data.DbType.Int32).Value = id;
+				command.ExecuteNonQuery();
 			}
-			return EMLib.Serialize.ToBase64(table);
+		}
+
+		[WebMethod]
+		public int GetLoactionByName(string name)
+		{
+			using (DbCommand command = Connection.GetCommand("SELECT id FROM location WHERE name = " + Connection.ParamMarker("var0")))
+			{
+				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.String).Value = name;
+				return Convert.ToInt32(command.ExecuteScalar());
+			}
+		}
+
+		[WebMethod]
+		public int InsertLocation(string name)
+		{
+			using (DbCommand command = Connection.GetCommand("INSERT INTO location (name) VALUES (" + Connection.ParamMarker("var0") + ")"))
+			{
+				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.String).Value = name;
+				command.ExecuteNonQuery();
+			}
+			return GetLoactionByName(name);
 		}
 
 		[WebMethod]

@@ -26,7 +26,7 @@ namespace EMServer.SQL
 				{
 					while (reader.Read())
 					{
-						table.Add(Convert.ToInt32(reader["locationId"]), reader["name"].ToString());
+						table.Add(Convert.ToInt32(reader["id"]), reader["name"].ToString());
 					}
 				}
 			}
@@ -58,10 +58,10 @@ namespace EMServer.SQL
 		public Dictionary<string, bool> GetDepartmentsByEmployeeId(int id)
 		{
 			Dictionary<string, bool> table = new Dictionary<string, bool>();
-			using (DbCommand command = Connection.GetCommand("select d.name, dg.id, e.firstName, (CASE WHEN dg.id is not null then 1 else 0 end) as hasRight " +
-																"from employees as e " +
-																"inner join departmentGroup as dg on e.id = dg.employeeId " +
-																"right join departments as d on dg.departmentId = d.id"))
+			using (DbCommand command = Connection.GetCommand("SELECT e.firstName, d.name, " +
+																"ISNULL((SELECT CASE WHEN dg.id > 0 then 1 end FROM departmentGroup as dg " +
+																"where dg.employeeId = e.id and dg.departmentId = d.id), 0) as hasRight FROM employees as e, departments as d " +
+																"WHERE e.id = " + Connection.ParamMarker("var0")))
 			{
 				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.Int32).Value = id;
 				using (var reader = command.ExecuteReader())
@@ -81,30 +81,29 @@ namespace EMServer.SQL
 
 			using (DbCommand command = Connection.GetCommand("INSERT INTO departments (name) Values (" + Connection.ParamMarker("var0") + ")"))
 			{
-				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.Int32).Value = name;
+				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.String).Value = name;
 				command.ExecuteNonQuery();
 			}
 			return GetDepartmentByName(name);
 		}
 
 		[WebMethod]
-		public void UpdateDepartmentName(string newName)
+		public void UpdateDepartmentName(int id, string newName)
 		{
-			using (DbCommand command = Connection.GetCommand("UPDATE departments SET name = " + Connection.ParamMarker("var0") + ""))
+			using (DbCommand command = Connection.GetCommand("UPDATE departments SET name = " + Connection.ParamMarker("var0") + " WHERE id = " + Connection.ParamMarker("var1")))
 			{
 				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.String).Value = newName;
+				Connection.AddParam(command, Connection.ParamMarker("var1"), System.Data.DbType.Int32).Value = id;
 				command.ExecuteNonQuery();
 			}
 		}
 
 		[WebMethod]
-		public void DeleteDepartment(string stringRow)
+		public void DeleteDepartment(int id)
 		{
-			var row = EMLib.Serialize.FromBase64<DepartmentRow>(stringRow);
-
-			using (DbCommand command = Connection.GetCommand("DELETE FROM departments WHERE name = " + Connection.ParamMarker("var0")))
+			using (DbCommand command = Connection.GetCommand("DELETE FROM departments WHERE id = " + Connection.ParamMarker("var0")))
 			{
-				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.Int32).Value = row.Name;
+				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.Int32).Value = id;
 				command.ExecuteNonQuery();
 			}
 		}

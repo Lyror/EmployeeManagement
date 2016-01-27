@@ -56,7 +56,8 @@ namespace EMServer
 				new SimpleWebServiceDescriptor("Employee", new SQL.EmployeeSQL(ConnectionString)),
 				new SimpleWebServiceDescriptor("Departments", new SQL.DepartmentSQL(ConnectionString)),
 				new SimpleWebServiceDescriptor("DepartmentGroup", new SQL.DepartmentGroupSQL(ConnectionString)),
-				new SimpleWebServiceDescriptor("LocationsGroup", new SQL.LocationsGroupSQL(ConnectionString))
+				new SimpleWebServiceDescriptor("LocationsGroup", new SQL.LocationsGroupSQL(ConnectionString)),
+				new SimpleWebServiceDescriptor("Locations", new SQL.LocationSQL(ConnectionString))
 			};
 		}
 	}

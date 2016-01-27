@@ -44,5 +44,10 @@ namespace EMLib
 				DgClient.CallSyncMethod("InsertDepartmentGroup", Clb.EmployeeId, Convert.ToInt32(id));
 			}
 		}
+
+		private void FrmCheckedListBox_Shown(object sender, EventArgs e)
+		{
+			MessageBox.Show("Dies ist eine nicht fertige Version eines alten Entwurfs und\r\n dient nur zur Skizze des neuen Entwurfs welcher in dieser Client-Version nicht verfügbar ist.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+		}
 	}
 }

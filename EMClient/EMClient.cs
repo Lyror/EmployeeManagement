@@ -19,7 +19,6 @@ namespace EMClient
 		public EMClient()
 		{
 			InitializeComponent();
-			LoadEmployees();
 		}
 
 		void em_Refresh()
@@ -37,14 +36,15 @@ namespace EMClient
 				em.departments = new EMLib.CheckedListBox();
 				var id = employeeClient.CallSyncMethod("InsertEmployee", newEM.FirstName, newEM.LastName);
 				em.departments.EmployeeId = Convert.ToInt32(id);
-				var departments = departmentClient.CallSyncMethod("GetDepartmentsByEmployeeId", em.Id);
-				em.departments.Items = (Dictionary<string, bool>)departments;
+				//var departments = departmentClient.CallSyncMethod("GetDepartmentsByEmployeeId", em.Id);
+				em.departments.Items = new Dictionary<string, bool>();
 				item.Tag = em;
 			}
 		}
 
 		private void LoadEmployees()
 		{
+			lvEmployees.Items.Clear();
 			var result = Serialize.FromBase64<EMLib.Employees.EmployeeTable>(employeeClient.CallSyncMethod("GetEmployees").ToString());
 			foreach (var employee in result.Rows)
 			{
@@ -52,8 +52,9 @@ namespace EMClient
 				employee.Refresh += em_Refresh;
 				employee.departments = new EMLib.CheckedListBox();
 				employee.departments.EmployeeId = employee.Id;
-				var departments = departmentClient.CallSyncMethod("GetDepartmentsByEmployeeId", employee.Id);
-				employee.departments.Items = (Dictionary<string, bool>)departments;
+				//var departments = departmentClient.CallSyncMethod("GetDepartmentsByEmployeeId", employee.Id);
+				//employee.departments.Items = (Dictionary<string, bool>)departments;
+				employee.departments.Items = new Dictionary<string, bool>();
 				item.Tag = employee;
 			}
 		}
@@ -98,7 +99,26 @@ namespace EMClient
 
 		private void tsbLocations_Click(object sender, EventArgs e)
 		{
+			NewLocation nl = new NewLocation();
+			nl.ShowDialog();
+		}
 
+		private void tsbDepartments_Click(object sender, EventArgs e)
+		{
+			NewDepartment newDep = new NewDepartment();
+
+			newDep.ShowDialog();
+		}
+
+		private void tsbMapping_Click(object sender, EventArgs e)
+		{
+			MessageBox.Show("Diese Funktion ist leider verbuggt.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			new Locations().ShowDialog();
+		}
+
+		private void tsbLoad_Click(object sender, EventArgs e)
+		{
+			LoadEmployees();
 		}
 	}
 }

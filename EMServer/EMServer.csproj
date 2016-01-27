@@ -85,6 +85,9 @@
     <Reference Include="RpcWebLib">
       <HintPath>..\..\..\DLLs\RpcWebLib.dll</HintPath>
     </Reference>
+    <Reference Include="SoftwareGrabber">
+      <HintPath>..\..\..\Development\Tools\Sebastian Tools\SoftwareGrabber\SoftwareGrabber\SoftwareGrabber\bin\Debug\SoftwareGrabber.exe</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

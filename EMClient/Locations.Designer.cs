@@ -28,19 +28,16 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Locations));
 			this.scMain = new System.Windows.Forms.SplitContainer();
 			this.lvLocations = new System.Windows.Forms.ListView();
 			this.chLocation = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.tsActions = new System.Windows.Forms.ToolStrip();
-			this.tsbNewLocation = new System.Windows.Forms.ToolStripButton();
-			this.tsbDeleteLocation = new System.Windows.Forms.ToolStripButton();
 			this.clbDepartments = new System.Windows.Forms.CheckedListBox();
+			this.btClose = new System.Windows.Forms.Button();
+			this.btSave = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.scMain)).BeginInit();
 			this.scMain.Panel1.SuspendLayout();
 			this.scMain.Panel2.SuspendLayout();
 			this.scMain.SuspendLayout();
-			this.tsActions.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// scMain
@@ -55,8 +52,8 @@
 			// scMain.Panel2
 			// 
 			this.scMain.Panel2.Controls.Add(this.clbDepartments);
-			this.scMain.Size = new System.Drawing.Size(425, 318);
-			this.scMain.SplitterDistance = 194;
+			this.scMain.Size = new System.Drawing.Size(425, 305);
+			this.scMain.SplitterDistance = 193;
 			this.scMain.TabIndex = 0;
 			// 
 			// lvLocations
@@ -65,48 +62,19 @@
             this.chLocation});
 			this.lvLocations.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lvLocations.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+			this.lvLocations.HideSelection = false;
 			this.lvLocations.Location = new System.Drawing.Point(0, 0);
 			this.lvLocations.Name = "lvLocations";
-			this.lvLocations.Size = new System.Drawing.Size(194, 318);
+			this.lvLocations.Size = new System.Drawing.Size(193, 305);
 			this.lvLocations.TabIndex = 0;
 			this.lvLocations.UseCompatibleStateImageBehavior = false;
 			this.lvLocations.View = System.Windows.Forms.View.Details;
+			this.lvLocations.SelectedIndexChanged += new System.EventHandler(this.lvLocations_SelectedIndexChanged);
 			// 
 			// chLocation
 			// 
 			this.chLocation.Text = "Standort";
 			this.chLocation.Width = 189;
-			// 
-			// tsActions
-			// 
-			this.tsActions.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.tsActions.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-			this.tsActions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsbNewLocation,
-            this.tsbDeleteLocation});
-			this.tsActions.Location = new System.Drawing.Point(0, 333);
-			this.tsActions.Name = "tsActions";
-			this.tsActions.Size = new System.Drawing.Size(449, 25);
-			this.tsActions.TabIndex = 1;
-			this.tsActions.Text = "Aktionen";
-			// 
-			// tsbNewLocation
-			// 
-			this.tsbNewLocation.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsbNewLocation.Image = ((System.Drawing.Image)(resources.GetObject("tsbNewLocation.Image")));
-			this.tsbNewLocation.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsbNewLocation.Name = "tsbNewLocation";
-			this.tsbNewLocation.Size = new System.Drawing.Size(23, 22);
-			this.tsbNewLocation.Text = "Neuer Standort";
-			// 
-			// tsbDeleteLocation
-			// 
-			this.tsbDeleteLocation.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsbDeleteLocation.Image = ((System.Drawing.Image)(resources.GetObject("tsbDeleteLocation.Image")));
-			this.tsbDeleteLocation.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsbDeleteLocation.Name = "tsbDeleteLocation";
-			this.tsbDeleteLocation.Size = new System.Drawing.Size(23, 22);
-			this.tsbDeleteLocation.Text = "Standort löschen";
 			// 
 			// clbDepartments
 			// 
@@ -114,26 +82,45 @@
 			this.clbDepartments.FormattingEnabled = true;
 			this.clbDepartments.Location = new System.Drawing.Point(0, 0);
 			this.clbDepartments.Name = "clbDepartments";
-			this.clbDepartments.Size = new System.Drawing.Size(227, 318);
+			this.clbDepartments.Size = new System.Drawing.Size(228, 305);
 			this.clbDepartments.TabIndex = 0;
+			this.clbDepartments.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbDepartments_ItemCheck);
+			// 
+			// btClose
+			// 
+			this.btClose.Location = new System.Drawing.Point(362, 323);
+			this.btClose.Name = "btClose";
+			this.btClose.Size = new System.Drawing.Size(75, 23);
+			this.btClose.TabIndex = 1;
+			this.btClose.Text = "Schließen";
+			this.btClose.UseVisualStyleBackColor = true;
+			// 
+			// btSave
+			// 
+			this.btSave.Location = new System.Drawing.Point(281, 323);
+			this.btSave.Name = "btSave";
+			this.btSave.Size = new System.Drawing.Size(75, 23);
+			this.btSave.TabIndex = 2;
+			this.btSave.Text = "Speichern";
+			this.btSave.UseVisualStyleBackColor = true;
+			this.btSave.Click += new System.EventHandler(this.btSave_Click);
 			// 
 			// Locations
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(449, 358);
-			this.Controls.Add(this.tsActions);
+			this.Controls.Add(this.btSave);
+			this.Controls.Add(this.btClose);
 			this.Controls.Add(this.scMain);
 			this.Name = "Locations";
 			this.Text = "Standorte";
+			this.Load += new System.EventHandler(this.Locations_Load);
 			this.scMain.Panel1.ResumeLayout(false);
 			this.scMain.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.scMain)).EndInit();
 			this.scMain.ResumeLayout(false);
-			this.tsActions.ResumeLayout(false);
-			this.tsActions.PerformLayout();
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
@@ -142,9 +129,8 @@
 		private System.Windows.Forms.SplitContainer scMain;
 		private System.Windows.Forms.ListView lvLocations;
 		private System.Windows.Forms.ColumnHeader chLocation;
-		private System.Windows.Forms.ToolStrip tsActions;
-		private System.Windows.Forms.ToolStripButton tsbNewLocation;
 		private System.Windows.Forms.CheckedListBox clbDepartments;
-		private System.Windows.Forms.ToolStripButton tsbDeleteLocation;
+		private System.Windows.Forms.Button btClose;
+		private System.Windows.Forms.Button btSave;
 	}
 }

@@ -36,9 +36,12 @@
 			this.tsActions = new System.Windows.Forms.ToolStrip();
 			this.tsbNewEmployee = new System.Windows.Forms.ToolStripButton();
 			this.tsbDeleteEmployee = new System.Windows.Forms.ToolStripButton();
-			this.pgEmployee = new System.Windows.Forms.PropertyGrid();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.tsbLocations = new System.Windows.Forms.ToolStripButton();
+			this.tsbDepartments = new System.Windows.Forms.ToolStripButton();
+			this.tsbMapping = new System.Windows.Forms.ToolStripButton();
+			this.pgEmployee = new System.Windows.Forms.PropertyGrid();
+			this.tsbLoad = new System.Windows.Forms.ToolStripButton();
 			((System.ComponentModel.ISupportInitialize)(this.scMain)).BeginInit();
 			this.scMain.Panel1.SuspendLayout();
 			this.scMain.Panel2.SuspendLayout();
@@ -96,10 +99,13 @@
 			// 
 			this.tsActions.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
 			this.tsActions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsbLoad,
             this.tsbNewEmployee,
             this.tsbDeleteEmployee,
             this.toolStripSeparator1,
-            this.tsbLocations});
+            this.tsbLocations,
+            this.tsbDepartments,
+            this.tsbMapping});
 			this.tsActions.Location = new System.Drawing.Point(0, 0);
 			this.tsActions.Name = "tsActions";
 			this.tsActions.Size = new System.Drawing.Size(263, 25);
@@ -127,15 +133,6 @@
 			this.tsbDeleteEmployee.Text = "Mitarbeiter löschen";
 			this.tsbDeleteEmployee.Click += new System.EventHandler(this.tsbDeleteEmployee_Click);
 			// 
-			// pgEmployee
-			// 
-			this.pgEmployee.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.pgEmployee.Location = new System.Drawing.Point(0, 0);
-			this.pgEmployee.Name = "pgEmployee";
-			this.pgEmployee.Size = new System.Drawing.Size(523, 500);
-			this.pgEmployee.TabIndex = 0;
-			this.pgEmployee.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.pgEmployee_PropertyValueChanged);
-			// 
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -150,6 +147,45 @@
 			this.tsbLocations.Size = new System.Drawing.Size(23, 22);
 			this.tsbLocations.Text = "Standorte verändern";
 			this.tsbLocations.Click += new System.EventHandler(this.tsbLocations_Click);
+			// 
+			// tsbDepartments
+			// 
+			this.tsbDepartments.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tsbDepartments.Image = ((System.Drawing.Image)(resources.GetObject("tsbDepartments.Image")));
+			this.tsbDepartments.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbDepartments.Name = "tsbDepartments";
+			this.tsbDepartments.Size = new System.Drawing.Size(23, 22);
+			this.tsbDepartments.Text = "Abteilungen";
+			this.tsbDepartments.Click += new System.EventHandler(this.tsbDepartments_Click);
+			// 
+			// tsbMapping
+			// 
+			this.tsbMapping.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tsbMapping.Image = ((System.Drawing.Image)(resources.GetObject("tsbMapping.Image")));
+			this.tsbMapping.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbMapping.Name = "tsbMapping";
+			this.tsbMapping.Size = new System.Drawing.Size(23, 22);
+			this.tsbMapping.Text = "Standorte und Abteilungen verknüpfen";
+			this.tsbMapping.Click += new System.EventHandler(this.tsbMapping_Click);
+			// 
+			// pgEmployee
+			// 
+			this.pgEmployee.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.pgEmployee.Location = new System.Drawing.Point(0, 0);
+			this.pgEmployee.Name = "pgEmployee";
+			this.pgEmployee.Size = new System.Drawing.Size(523, 500);
+			this.pgEmployee.TabIndex = 0;
+			this.pgEmployee.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.pgEmployee_PropertyValueChanged);
+			// 
+			// tsbLoad
+			// 
+			this.tsbLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tsbLoad.Image = ((System.Drawing.Image)(resources.GetObject("tsbLoad.Image")));
+			this.tsbLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbLoad.Name = "tsbLoad";
+			this.tsbLoad.Size = new System.Drawing.Size(23, 22);
+			this.tsbLoad.Text = "Laden";
+			this.tsbLoad.Click += new System.EventHandler(this.tsbLoad_Click);
 			// 
 			// EMClient
 			// 
@@ -182,6 +218,9 @@
 		private System.Windows.Forms.ColumnHeader chName;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripButton tsbLocations;
+		private System.Windows.Forms.ToolStripButton tsbDepartments;
+		private System.Windows.Forms.ToolStripButton tsbMapping;
+		private System.Windows.Forms.ToolStripButton tsbLoad;
     }
 }
 
