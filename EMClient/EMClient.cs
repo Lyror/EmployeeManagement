@@ -36,7 +36,7 @@ namespace EMClient
 				em.departments = new EMLib.CheckedListBox();
 				var id = employeeClient.CallSyncMethod("InsertEmployee", newEM.FirstName, newEM.LastName);
 				em.departments.EmployeeId = Convert.ToInt32(id);
-				//var departments = departmentClient.CallSyncMethod("GetDepartmentsByEmployeeId", em.Id);
+				var departments = departmentClient.CallSyncMethod("GetDepartmentsByEmployeeId", em.Id);
 				em.departments.Items = new Dictionary<string, bool>();
 				item.Tag = em;
 			}

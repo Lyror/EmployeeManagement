@@ -49,6 +49,26 @@
   <PropertyGroup>
     <ApplicationIcon>Icons-Land-Vista-Hardware-Devices-Home-Server.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="adodb, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -79,14 +99,14 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\DLLs\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RpcClientLib">
+      <HintPath>..\..\..\DLLs\RpcClientLib.dll</HintPath>
+    </Reference>
     <Reference Include="RpcContract">
       <HintPath>..\..\..\DLLs\RpcContract.dll</HintPath>
     </Reference>
     <Reference Include="RpcWebLib">
-      <HintPath>..\..\..\DLLs\RpcWebLib.dll</HintPath>
-    </Reference>
-    <Reference Include="SoftwareGrabber">
-      <HintPath>..\..\..\Development\Tools\Sebastian Tools\SoftwareGrabber\SoftwareGrabber\SoftwareGrabber\bin\Debug\SoftwareGrabber.exe</HintPath>
+      <HintPath>H:\addons\EmployeeManagement\EMServer\bin\Debug\RpcWebLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
