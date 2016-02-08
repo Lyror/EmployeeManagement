@@ -22,40 +22,30 @@ namespace EMClient
 		RpcClient locationClient = new RpcClient(Config.RpcConfigString, "Locations");
 		RpcClient locationsGroupClient = new RpcClient(Config.RpcConfigString, "LocationsGroup");
 
-		List<Tuple<string, List<Tuple<string, bool>>>> mappingList = new List<Tuple<string, List<Tuple<string, bool>>>>();
-
 		private void Locations_Load(object sender, EventArgs e)
 		{
 			var result = locationsGroupClient.CallSyncMethod("GetLocationsAndDepartments");
 
-			lock(wait)
+			foreach (var locItem in (Dictionary<string, Dictionary<string, bool>>)result)
 			{
-				foreach (var item in (Dictionary<string, Dictionary<string, bool>>)result)
-				{
-					var checkedList = (from l in item.Value select new Tuple<string, bool>(l.Key, l.Value)).ToList();
-					mappingList.Add
-					(
-						new Tuple<string, List<Tuple<string, bool>>>(item.Key, checkedList)
-					);
-
-					lvLocations.Items.Add(item.Key).Tag = checkedList;
-				}
+				lvLocations.Items.Add(locItem.Key).Tag = locItem.Value;
 			}
 		}
 
 		object wait = new object();
 		private void lvLocations_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (lvLocations.SelectedItems.Count > 0)
+			if(lvLocations.SelectedItems.Count > 0)
 			{
-				List<Tuple<string, bool>> item = (List<Tuple<string,bool>>)lvLocations.SelectedItems[0].Tag;
+				
+				Dictionary<string, bool> item = (Dictionary<string, bool>)lvLocations.SelectedItems[0].Tag;
 				clbDepartments.Items.Clear();
 
 				lock (wait)
 				{
 					foreach (var departments in item)
 					{
-						clbDepartments.Items.Add(departments.Item1, departments.Item2);
+						clbDepartments.Items.Add(departments.Key, departments.Value);
 					}
 				}
 			}
@@ -65,11 +55,8 @@ namespace EMClient
 		{
 			if (lvLocations.SelectedItems.Count > 0 && e.CurrentValue.CompareTo(e.NewValue) != 0)
 			{
-				lock(wait)
-					{
-					List<Tuple<string, bool>> item = (List<Tuple<string, bool>>)lvLocations.SelectedItems[0].Tag;
-					// = e.NewValue == 0 ? false : true;
-				}
+				Dictionary<string, bool> item = (Dictionary<string, bool>)lvLocations.SelectedItems[0].Tag;
+				item[clbDepartments.Items[e.Index].ToString()] = e.NewValue == 0 ? false : true;
 			}
 		}
 

@@ -38,15 +38,15 @@ namespace EMServer.SQL
 							new EmployeeRow()
 							{
 								Id = Convert.ToInt32(reader["id"]),
-								FirstName = reader["firstName"] == null ? String.Empty : reader["firstName"].ToString(),
-								LastName = reader["lastName"] == null ? String.Empty : reader["lastName"].ToString(),
-								Adress = reader["adress"] == null ? String.Empty : reader["adress"].ToString(),
-								Birthday = reader.IsDBNull(reader.GetOrdinal("birthday")) ? DateTime.MinValue : Convert.ToDateTime(reader["birhtday"]),
-								Email = reader["email"] == null ? String.Empty : reader["email"].ToString(),
-								Phone = reader["phone"] == null ? String.Empty : reader["phone"].ToString(),
-								DateCount = Convert.ToInt32(reader["dateCount"].ToString()),
-								HourCountPerDay = Convert.ToInt32(reader["hourCountPerDay"].ToString()),
-								HolidaysPerYear = Convert.ToInt32(reader["holidaysPerYear"].ToString())
+								FirstName = reader["firstName"].ToString(),
+								LastName = reader["lastName"].ToString(),
+								Adress = reader["adress"].ToString(),
+								Birthday = reader.IsDBNull(reader.GetOrdinal("birthday")) == true ? DateTime.MinValue : Convert.ToDateTime(reader["birthday"]),
+								Email = reader["email"].ToString(),
+								Phone = reader["phone"].ToString(),
+								DateCount = Convert.ToInt32(reader["dateCount"]),
+								HourCountPerDay = Convert.ToInt32(reader["hourCountPerDay"]),
+								HolidaysPerYear = Convert.ToInt32(reader["holidaysPerYear"])
 							}
 						);
 					}

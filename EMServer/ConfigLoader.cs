@@ -19,19 +19,10 @@ namespace EMServer
 
 		private static XDocument GetFile()
 		{
-			if (File.Exists(ConfigPath))
-			{
-				return XDocument.Load(ConfigPath);
-			}
-			else
-			{
-				XDocument doc = new XDocument(new XElement("Config", new XElement("ConnectionString", String.Empty)));
-				doc.Save(ConfigPath);
-				return doc;
-			}
+			return File.Exists(ConfigPath) ? XDocument.Load(ConfigPath) : null;
 		}
 
-		internal static void Save(string connectionString, bool newFile = false)
+		internal static void Save(string connectionString)
 		{
 			XDocument doc = new XDocument(new XElement("Config"));
 			doc.Root.Add(new XElement("ConnectionString", connectionString));

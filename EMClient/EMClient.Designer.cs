@@ -29,6 +29,7 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EMClient));
+			this.ribbonOrbOptionButton1 = new System.Windows.Forms.RibbonOrbOptionButton();
 			this.scMain = new System.Windows.Forms.SplitContainer();
 			this.lvEmployees = new System.Windows.Forms.ListView();
 			this.chName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -47,6 +48,11 @@
 			this.scMain.SuspendLayout();
 			this.tsActions.SuspendLayout();
 			this.SuspendLayout();
+			// 
+			// ribbonOrbOptionButton1
+			// 
+			this.ribbonOrbOptionButton1.Image = ((System.Drawing.Image)(resources.GetObject("ribbonOrbOptionButton1.Image")));
+			this.ribbonOrbOptionButton1.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonOrbOptionButton1.SmallImage")));
 			// 
 			// scMain
 			// 
@@ -201,6 +207,8 @@
 		}
 
         #endregion
+
+		private System.Windows.Forms.RibbonOrbOptionButton ribbonOrbOptionButton1;
 		private System.Windows.Forms.SplitContainer scMain;
 		private System.Windows.Forms.ListView lvEmployees;
 		private System.Windows.Forms.ToolStrip tsActions;

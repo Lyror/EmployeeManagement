@@ -57,26 +57,11 @@ namespace EMServer.SQL
 		[WebMethod]
 		public Dictionary<string, bool> GetDepartmentsByEmployeeId(int id)
 		{
-			string sql = null;
-			switch (Connection.DBType)
-			{
-				case acadGraph.Libs.ConnectionConfig.DBTypes.Access:
-					throw new NotImplementedException("Access not Supported");
-					//sql = "SELECT e.firstName, d.name, IIf(NZ((SELECT dg.Id FROM departmentGroup as dg " +
-					//		"where dg.employeeId = e.id and dg.departmentId = d.id)) > 0, '1', '0') AS hasRight " +
-					//		"FROM employees AS e, departments AS d " + 
-					//		"WHERE e.id = ";
-					//break;
-				case acadGraph.Libs.ConnectionConfig.DBTypes.SQLServer:
-					sql = "SELECT e.firstName, d.name, " +
-							"ISNULL((SELECT CASE WHEN dg.id > 0 then 1 end FROM departmentGroup as dg " +
-							"where dg.employeeId = e.id and dg.departmentId = d.id), 0) as hasRight FROM employees as e, departments as d " +
-							"WHERE e.id = ";
-					break;
-			}
-
 			Dictionary<string, bool> table = new Dictionary<string, bool>();
-			using (DbCommand command = Connection.GetCommand(sql + Connection.ParamMarker("var0")))
+			using (DbCommand command = Connection.GetCommand("SELECT e.firstName, d.name, " +
+																"ISNULL((SELECT CASE WHEN dg.id > 0 then 1 end FROM departmentGroup as dg " +
+																"where dg.employeeId = e.id and dg.departmentId = d.id), 0) as hasRight FROM employees as e, departments as d " +
+																"WHERE e.id = " + Connection.ParamMarker("var0")))
 			{
 				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.Int32).Value = id;
 				using (var reader = command.ExecuteReader())
