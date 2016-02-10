@@ -75,5 +75,10 @@ namespace EMClient
 			locationsGroupClient.CallSyncMethod("DeleteLocationsGroup");
 			locationsGroupClient.CallSyncMethod("InsertLocationGroupByTable", items);
 		}
+
+		private void btClose_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
 	}
 }
