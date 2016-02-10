@@ -54,39 +54,39 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="ConnectionConfig">
-      <HintPath>..\..\..\DLLs\ConnectionConfig.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\DLLs\ConnectionConfig.dll</HintPath>
     </Reference>
     <Reference Include="DBConnection">
-      <HintPath>..\..\..\DLLs\DBConnection.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\DLLs\DBConnection.dll</HintPath>
     </Reference>
     <Reference Include="HttpServer">
-      <HintPath>..\..\..\DLLs\HttpServer.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\DLLs\HttpServer.dll</HintPath>
     </Reference>
     <Reference Include="Interop.MSDASC">
-      <HintPath>..\..\..\DLLs\Interop.MSDASC.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\DLLs\Interop.MSDASC.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Lib, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\DLLs\Lib.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\DLLs\Lib.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\..\DLLs\log4net.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\DLLs\log4net.dll</HintPath>
     </Reference>
     <Reference Include="msdatasrc, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\DLLs\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\DLLs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RpcClientLib">
+      <HintPath>..\..\..\..\..\..\..\DLLs\RpcClientLib.dll</HintPath>
     </Reference>
     <Reference Include="RpcContract">
-      <HintPath>..\..\..\DLLs\RpcContract.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\DLLs\RpcContract.dll</HintPath>
     </Reference>
     <Reference Include="RpcWebLib">
-      <HintPath>..\..\..\DLLs\RpcWebLib.dll</HintPath>
-    </Reference>
-    <Reference Include="SoftwareGrabber">
-      <HintPath>..\..\..\Development\Tools\Sebastian Tools\SoftwareGrabber\SoftwareGrabber\SoftwareGrabber\bin\Debug\SoftwareGrabber.exe</HintPath>
+      <HintPath>..\..\..\..\..\..\..\DLLs\RpcWebLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

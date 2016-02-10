@@ -14,6 +14,8 @@ namespace EMServer
 
 		internal static string LoadConnectionString()
 		{
+			if (!File.Exists(ConfigPath))
+				Save("");
 			return GetFile().Root.Element("ConnectionString").Value;
 		}
 

@@ -32,39 +32,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ConnectionConfig">
-      <HintPath>..\..\..\DLLs\ConnectionConfig.dll</HintPath>
-    </Reference>
-    <Reference Include="DBConnection">
-      <HintPath>..\..\..\DLLs\DBConnection.dll</HintPath>
-    </Reference>
     <Reference Include="HttpServer">
-      <HintPath>..\..\..\DLLs\HttpServer.dll</HintPath>
-    </Reference>
-    <Reference Include="Interop.MSDASC">
-      <HintPath>..\..\..\DLLs\Interop.MSDASC.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\DLLs\HttpServer.dll</HintPath>
     </Reference>
     <Reference Include="Lib">
-      <HintPath>..\..\..\DLLs\Lib.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\DLLs\Lib.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\..\DLLs\log4net.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\DLLs\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\EMServer\bin\Debug\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\DLLs\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="RpcClientLib">
-      <HintPath>..\..\..\DLLs\RpcClientLib.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\DLLs\RpcClientLib.dll</HintPath>
     </Reference>
     <Reference Include="RpcContract">
-      <HintPath>..\..\..\DLLs\RpcContract.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\DLLs\RpcContract.dll</HintPath>
+    </Reference>
+    <Reference Include="RpcWebLib">
+      <HintPath>..\..\..\..\..\..\..\DLLs\RpcWebLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Forms.Ribbon35">
-      <HintPath>..\..\..\DLLs\System.Windows.Forms.Ribbon35.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />

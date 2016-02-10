@@ -42,6 +42,9 @@
 			// 
 			// scMain
 			// 
+			this.scMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.scMain.Location = new System.Drawing.Point(12, 12);
 			this.scMain.Name = "scMain";
 			// 
@@ -78,7 +81,9 @@
 			// 
 			// clbDepartments
 			// 
-			this.clbDepartments.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.clbDepartments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.clbDepartments.FormattingEnabled = true;
 			this.clbDepartments.Location = new System.Drawing.Point(0, 0);
 			this.clbDepartments.Name = "clbDepartments";
@@ -88,6 +93,7 @@
 			// 
 			// btClose
 			// 
+			this.btClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btClose.Location = new System.Drawing.Point(362, 323);
 			this.btClose.Name = "btClose";
 			this.btClose.Size = new System.Drawing.Size(75, 23);
@@ -98,6 +104,7 @@
 			// 
 			// btSave
 			// 
+			this.btSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btSave.Location = new System.Drawing.Point(281, 323);
 			this.btSave.Name = "btSave";
 			this.btSave.Size = new System.Drawing.Size(75, 23);
