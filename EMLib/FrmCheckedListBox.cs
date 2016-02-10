@@ -21,33 +21,47 @@ namespace EMLib
 
 		public FrmCheckedListBox(CheckedListBox clb)
 		{
+			this.Clb = clb;
 			InitializeComponent();
-			Clb = clb;
-			foreach (var item in clb.Items)
+			var locations = DgClient.CallSyncMethod("GetEmployeeDepartments", clb.EmployeeId);
+
+			foreach (var location in (Dictionary<string, Dictionary<string, bool>>)locations)
 			{
-				clbChoise.Items.Add(item.Key, item.Value);
+				lvMapping.Groups.Add(location.Key, location.Key);
+			}
+
+
+			foreach (var location in (Dictionary<string, Dictionary<string, bool>>)locations)
+			{
+				foreach (var department in location.Value)
+				{
+					var item = lvMapping.Items.Add(new ListViewItem()
+						{
+							Text = department.Key,
+							Name = department.Key,
+							Checked = department.Value
+						});
+					item.Group = lvMapping.Groups[location.Key];
+				}
 			}
 		}
 
 		private void btSave_Click(object sender, EventArgs e)
 		{
 			DgClient.CallSyncMethod("DeleteDepartmentGroup", Clb.EmployeeId);
-			Clb.Items.Clear();
-			for (int i = 0; i < clbChoise.Items.Count; i++)
+
+			foreach (ListViewItem item in lvMapping.Items)
 			{
-				Clb.Items.Add(clbChoise.Items[i].ToString(), false);
-			}
-			foreach (var item in clbChoise.CheckedItems)
-			{
-				Clb.Items[item.ToString()] = true;
-				var id = DClient.CallSyncMethod("GetDepartmentByName", item.ToString());
-				DgClient.CallSyncMethod("InsertDepartmentGroup", Clb.EmployeeId, Convert.ToInt32(id));
+				if(item.Checked)
+				{
+					DgClient.CallSyncMethod("InsertDepartmentGroupByName", Clb.EmployeeId, item.Group.Header, item.Text);
+				}
 			}
 		}
 
-		private void FrmCheckedListBox_Shown(object sender, EventArgs e)
+		private void lvMapping_ItemChecked(object sender, ItemCheckedEventArgs e)
 		{
-			MessageBox.Show("Dies ist eine nicht fertige Version eines alten Entwurfs und\r\n dient nur zur Skizze des neuen Entwurfs welcher in dieser Client-Version nicht verfügbar ist.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
 		}
 	}
 }

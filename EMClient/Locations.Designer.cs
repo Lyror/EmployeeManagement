@@ -115,7 +115,6 @@
 			this.Controls.Add(this.scMain);
 			this.Name = "Locations";
 			this.Text = "Standorte";
-			this.Load += new System.EventHandler(this.Locations_Load);
 			this.scMain.Panel1.ResumeLayout(false);
 			this.scMain.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.scMain)).EndInit();

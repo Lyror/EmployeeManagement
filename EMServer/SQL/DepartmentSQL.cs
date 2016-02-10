@@ -101,7 +101,7 @@ namespace EMServer.SQL
 		[WebMethod]
 		public void DeleteDepartment(int id)
 		{
-			using (DbCommand command = Connection.GetCommand("DELETE FROM departments WHERE id = " + Connection.ParamMarker("var0")))
+			using (DbCommand command = Connection.GetCommand("DELETE FROM departments WHERE employeeId = " + Connection.ParamMarker("var0")))
 			{
 				Connection.AddParam(command, Connection.ParamMarker("var0"), System.Data.DbType.Int32).Value = id;
 				command.ExecuteNonQuery();

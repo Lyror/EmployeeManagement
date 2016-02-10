@@ -39,11 +39,14 @@ namespace EMClient
 			{
 				
 				Dictionary<string, bool> item = (Dictionary<string, bool>)lvLocations.SelectedItems[0].Tag;
+
+				Dictionary<string, bool> itemCopy = new Dictionary<string, bool>(item);
+
 				clbDepartments.Items.Clear();
 
 				lock (wait)
 				{
-					foreach (var departments in item)
+					foreach (var departments in itemCopy)
 					{
 						clbDepartments.Items.Add(departments.Key, departments.Value);
 					}

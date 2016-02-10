@@ -112,7 +112,6 @@ namespace EMClient
 
 		private void tsbMapping_Click(object sender, EventArgs e)
 		{
-			MessageBox.Show("Diese Funktion ist leider verbuggt.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			new Locations().ShowDialog();
 		}
 
