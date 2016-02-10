@@ -65,7 +65,7 @@
 			// 
 			this.btServerStart.Image = global::EMServer.Properties.Resources.start;
 			this.btServerStart.Name = "btServerStart";
-			this.btServerStart.Size = new System.Drawing.Size(152, 22);
+			this.btServerStart.Size = new System.Drawing.Size(98, 22);
 			this.btServerStart.Text = "Start";
 			this.btServerStart.Click += new System.EventHandler(this.btServerStart_Click);
 			// 
@@ -73,7 +73,7 @@
 			// 
 			this.btServerStop.Image = global::EMServer.Properties.Resources._1195445190322000997molumen_red_round_error_warning_icon_svg_med;
 			this.btServerStop.Name = "btServerStop";
-			this.btServerStop.Size = new System.Drawing.Size(152, 22);
+			this.btServerStop.Size = new System.Drawing.Size(98, 22);
 			this.btServerStop.Text = "Stop";
 			this.btServerStop.Click += new System.EventHandler(this.btServerStop_Click);
 			// 
@@ -117,7 +117,7 @@
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MainMenuStrip = this.msAction;
 			this.Name = "EMServer";
-			this.Text = "EMServer";
+			this.Text = "PMS Server";
 			this.msAction.ResumeLayout(false);
 			this.msAction.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pbStatus)).EndInit();

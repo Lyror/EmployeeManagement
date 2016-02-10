@@ -34,6 +34,7 @@
 			this.lvEmployees = new System.Windows.Forms.ListView();
 			this.chName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.tsActions = new System.Windows.Forms.ToolStrip();
+			this.tsbLoad = new System.Windows.Forms.ToolStripButton();
 			this.tsbNewEmployee = new System.Windows.Forms.ToolStripButton();
 			this.tsbDeleteEmployee = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -41,7 +42,6 @@
 			this.tsbDepartments = new System.Windows.Forms.ToolStripButton();
 			this.tsbMapping = new System.Windows.Forms.ToolStripButton();
 			this.pgEmployee = new System.Windows.Forms.PropertyGrid();
-			this.tsbLoad = new System.Windows.Forms.ToolStripButton();
 			((System.ComponentModel.ISupportInitialize)(this.scMain)).BeginInit();
 			this.scMain.Panel1.SuspendLayout();
 			this.scMain.Panel2.SuspendLayout();
@@ -112,6 +112,16 @@
 			this.tsActions.TabIndex = 0;
 			this.tsActions.Text = "toolStrip1";
 			// 
+			// tsbLoad
+			// 
+			this.tsbLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tsbLoad.Image = ((System.Drawing.Image)(resources.GetObject("tsbLoad.Image")));
+			this.tsbLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbLoad.Name = "tsbLoad";
+			this.tsbLoad.Size = new System.Drawing.Size(23, 22);
+			this.tsbLoad.Text = "Laden";
+			this.tsbLoad.Click += new System.EventHandler(this.tsbLoad_Click);
+			// 
 			// tsbNewEmployee
 			// 
 			this.tsbNewEmployee.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -177,16 +187,6 @@
 			this.pgEmployee.TabIndex = 0;
 			this.pgEmployee.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.pgEmployee_PropertyValueChanged);
 			// 
-			// tsbLoad
-			// 
-			this.tsbLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsbLoad.Image = ((System.Drawing.Image)(resources.GetObject("tsbLoad.Image")));
-			this.tsbLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsbLoad.Name = "tsbLoad";
-			this.tsbLoad.Size = new System.Drawing.Size(23, 22);
-			this.tsbLoad.Text = "Laden";
-			this.tsbLoad.Click += new System.EventHandler(this.tsbLoad_Click);
-			// 
 			// EMClient
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -194,7 +194,7 @@
 			this.ClientSize = new System.Drawing.Size(790, 500);
 			this.Controls.Add(this.scMain);
 			this.Name = "EMClient";
-			this.Text = "EMClient";
+			this.Text = "PMS Client";
 			this.scMain.Panel1.ResumeLayout(false);
 			this.scMain.Panel1.PerformLayout();
 			this.scMain.Panel2.ResumeLayout(false);
